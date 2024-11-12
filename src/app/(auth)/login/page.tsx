@@ -9,13 +9,6 @@ import { useState } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 
 const page = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const handleLogin = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-  };
-
   return (
     <div className="flex w-screen">
       <div className="w-3/5 bg-white h-screen overflow-y-auto pb-10 flex flex-col gap-y-4">
@@ -48,35 +41,6 @@ const page = () => {
               Continue with Github
             </MyButton>
           </div>
-
-          <h3 className="text-center">OR</h3>
-
-          <form className="flex flex-col gap-y-3" onSubmit={handleLogin}>
-            <TextField
-              label="Email"
-              variant="outlined"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <TextField
-              label="Password"
-              variant="outlined"
-              value={password}
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <Link
-              href={"/reset_password"}
-              className="text-primary-400 text-end hover:underline"
-            >
-              Forgot your password?
-            </Link>
-            <MyButton className="normal-case  bg-primary-300 p-3">
-              Login
-            </MyButton>
-          </form>
         </div>
       </div>
 

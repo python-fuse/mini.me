@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Outfit, Poppins } from "next/font/google";
 import "./globals.css";
+import SessionProvider from "@/contexts/SessionProvider";
+import { getServerSession } from "next-auth";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -13,14 +15,18 @@ export const metadata: Metadata = {
     "Mini.me - Your quick and simple solution for creating and managing short URLs. Share links effortlessly and keep them organized.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+
   return (
     <html lang="en">
-      <body className={`bg-accent  ${poppins.className}`}>{children}</body>
+      <body className={`bg-accent  ${poppins.className}`}>
+        <SessionProvider session={session}>{children}</SessionProvider>
+      </body>
     </html>
   );
 }
