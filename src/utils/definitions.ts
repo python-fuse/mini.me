@@ -5,3 +5,7 @@ export interface Pathname {
   href: string;
   icon: IconType;
 }
+
+Type URL = {
+  
+}

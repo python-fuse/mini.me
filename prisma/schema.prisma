@@ -25,7 +25,7 @@ model User {
 model URL {
     id           String      @id @default(cuid())
     original_url String
-    short_url    String
+    short_url    String      @unique
     clicks       Int         @default(0)
     user         User?       @relation(fields: [userId], references: [id])
     createdAt    DateTime    @default(now())
