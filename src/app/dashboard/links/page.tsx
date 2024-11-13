@@ -2,6 +2,7 @@
 
 import MyButton from "@/src/components/Button";
 import LinkCard from "@/src/components/LinkCard";
+import { ModalProvider } from "@/src/contexts/ModalContext";
 import { FakeLinks } from "@/src/utils/constants";
 import { Divider } from "@mui/material";
 import { BiPlus } from "react-icons/bi";
@@ -22,11 +23,13 @@ const page = () => {
 
       <Divider />
 
-      <div className="flex flex-col space-y-4">
-        {FakeLinks.map((link) => (
-          <LinkCard key={link.id} link={link} />
-        ))}
-      </div>
+      <ModalProvider>
+        <div className="flex flex-col space-y-4">
+          {FakeLinks.map((link) => (
+            <LinkCard key={link.id} link={link} />
+          ))}
+        </div>
+      </ModalProvider>
     </div>
   );
 };

@@ -22,3 +22,11 @@ export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
     </ModalContext.Provider>
   );
 };
+
+export const useModal = () => {
+  const context = React.useContext(ModalContext);
+  if (context === undefined) {
+    throw new Error("useModal must be used within a ModalProvider");
+  }
+  return context;
+};

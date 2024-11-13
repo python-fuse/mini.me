@@ -5,14 +5,20 @@ import { BiBarChart, BiCalendar, BiCopy, BiShare } from "react-icons/bi";
 import { format } from "date-fns";
 import ActionButton from "@/src/components/ActionButton";
 import { FiShare } from "react-icons/fi";
+import { useModal } from "@/src/contexts/ModalContext";
+import ShareModal from "@/src/components/modals/ShareModal";
 
 interface LinkCardProps {
   link: URL;
 }
 
 const LinkCard: FC<LinkCardProps> = ({ link }) => {
+  const { isModalOpen, openModal, closeModal } = useModal();
+
   return (
     <div className="p-6 shadow-md rounded-md bg-white flex gap-x-2">
+      <ShareModal link={link} isOpen={isModalOpen} onClose={closeModal} />
+
       <div className="w-3/4 flex space-x-4">
         <div className="h-10 grid place-content-center overflow-hidden shrink-0 w-10 rounded-full border border-accent-400">
           <img
@@ -60,6 +66,7 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
         <ActionButton
           onClick={() => {
             // Implement share functionality
+            openModal();
           }}
         >
           <FiShare size={16} />
