@@ -24,6 +24,7 @@ model User {
 // Url model
 model URL {
     id           String      @id @default(cuid())
+    title        String
     original_url String
     short_url    String      @unique
     clicks       Int         @default(0)
@@ -32,6 +33,7 @@ model URL {
     updatedAt    DateTime    @updatedAt
     userId       String?
     qrCode       String?
+    urlIcon      String?
     analytics    Analytics[]
 }
 

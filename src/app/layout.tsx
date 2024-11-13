@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Outfit, Poppins } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/src/contexts/SessionProvider";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-const poppins = Poppins({
+const poppins = Outfit({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });

@@ -40,12 +40,12 @@ const Sidebar = () => {
           )}
         </button>
 
-        <div className="flex gap-x-2 items-center place-content-center">
+        <div className="flex gap-x-2 px-2 items-center place-content-center">
           <Link href="/" className="font-semibold shrink-0">
             <Image
               src={logo}
               alt={"Mini.me"}
-              className="w-[60px] flex-shrink-0"
+              className="w-[40px] flex-shrink-0"
             />
           </Link>
           {isOpen && (
@@ -55,12 +55,12 @@ const Sidebar = () => {
           )}
         </div>
 
-        <MyButton className="w-full">
+        <MyButton className="w-full font-semibold text-nowrap ">
           <BiPlus size={20} />
-          {isOpen && <p>Create new</p>}
+          {isOpen && <p>Create link</p>}
         </MyButton>
 
-        <div className="bg-tertiary h-px rounded-md w-full" />
+        <div className="bg-tertiary h-px rounded-md w-full mb-4 " />
 
         <div className="flex flex-col w-full gap-y-4">
           {PATHNAMES.map((pathname, index) => (
