@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Poppins } from "next/font/google";
 import "./globals.css";
-import SessionProvider from "@/contexts/SessionProvider";
+import SessionProvider from "@/src/contexts/SessionProvider";
 import { getServerSession } from "next-auth";
 
 const poppins = Poppins({

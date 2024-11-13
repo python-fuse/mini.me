@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
+import LogoutBUtton from "../components/LogoutBUtton";
 
 const page = async () => {
   const session = await getServerSession();
@@ -9,6 +10,7 @@ const page = async () => {
       <div>
         Signed in as {session.user!.name} <br />
         {/* <button onClick={() => signOut()}>Sign out</button> */}
+        <LogoutBUtton />
       </div>
     );
   } else {

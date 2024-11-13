@@ -1,20 +1,26 @@
+import { FiSettings } from "react-icons/fi";
 import { Pathname } from "./definitions";
+import { BiHome, BiLink, BiQr } from "react-icons/bi";
 
-const PATHNAMES: Pathname[] = [
+export const PATHNAMES: Pathname[] = [
   {
-    name: "Dashboard",
-    path: "/",
+    title: "Dashboard",
+    href: "/dashboard",
+    icon: BiHome,
   },
   {
-    name: "Links",
-    path: "/links",
+    title: "Links",
+    href: "/dashboard/links",
+    icon: BiLink,
   },
   {
-    name: "QR Codes",
-    path: "/qr_codes",
+    title: "QR Codes",
+    href: "/dashboard/qr_codes",
+    icon: BiQr,
   },
   {
-    name: "Settings",
-    path: "/settings",
+    title: "Settings",
+    href: "/dashboard/settings",
+    icon: FiSettings,
   },
 ];

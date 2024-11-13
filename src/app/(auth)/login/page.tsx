@@ -1,17 +1,23 @@
-"use client";
-
-import logo from "@/assets/logo.png";
-import MyButton from "@/src/components/Button";
-import { TextField } from "@mui/material";
+import logo from "@/src/assets/logo.png";
+import AuthButons from "@/src/components/AuthButons";
+import { getServerSession } from "next-auth";
+import { getProviders } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { redirect } from "next/navigation";
 
-const page = () => {
+const page = async () => {
+  const session = await getServerSession();
+
+  if (session) {
+    redirect("/dashboard");
+  }
+
+  const providers = await getProviders();
+
   return (
     <div className="flex w-screen">
-      <div className="w-3/5 bg-white h-screen overflow-y-auto pb-10 flex flex-col gap-y-4">
+      <div className="w-full md:w-3/5 bg-white h-screen overflow-y-auto pb-10 flex flex-col gap-y-4">
         <Image src={logo} alt="Mini.me" />
 
         {/* Login text and signup */}
@@ -30,21 +36,11 @@ const page = () => {
           </div>
 
           {/* Auth providers */}
-          <div className="flex flex-col space-y-3">
-            <MyButton className="normal-case bg-primary-300 p-3">
-              <FaGoogle size={22} />
-              Continue with Google
-            </MyButton>
-
-            <MyButton className="normal-case  bg-primary-300 p-3">
-              <FaGithub size={22} />
-              Continue with Github
-            </MyButton>
-          </div>
+          <AuthButons providers={providers} />
         </div>
       </div>
 
-      <div className="flex-1 h-screen bg-tertiary"></div>
+      <div className="hidden md:block flex-1 h-screen bg-tertiary"></div>
     </div>
   );
 };

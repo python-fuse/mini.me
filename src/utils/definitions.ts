@@ -1,4 +1,7 @@
+import { IconType } from "react-icons";
+
 export interface Pathname {
-  name: string;
-  path: string;
+  title: string;
+  href: string;
+  icon: IconType;
 }

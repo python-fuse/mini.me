@@ -8,13 +8,20 @@ interface ButtonProps {
   loading?: boolean;
   className?: string;
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
-const MyButton: React.FC<ButtonProps> = ({ loading, className, children }) => {
+const MyButton: React.FC<ButtonProps> = ({
+  loading,
+  className,
+  children,
+  onClick,
+}) => {
   return (
     <Button
       className={`flex items-center normal-case font-normal gap-x-1 ${className}`}
       variant="contained"
+      onClick={onClick}
     >
       {loading === true ? <Spinner /> : children}
     </Button>
