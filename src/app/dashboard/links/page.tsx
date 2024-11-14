@@ -5,6 +5,7 @@ import LinkCard from "@/src/components/LinkCard";
 import { ModalProvider } from "@/src/contexts/ModalContext";
 import { FakeLinks } from "@/src/utils/constants";
 import { Divider } from "@mui/material";
+import Link from "next/link";
 import { BiPlus } from "react-icons/bi";
 
 const page = () => {
@@ -15,10 +16,12 @@ const page = () => {
           <h2 className="text-black/80 font-bold text-4xl">Links</h2>
         </div>
 
-        <MyButton className="font-semibold">
-          <BiPlus size={20} />
-          <p>Create link</p>
-        </MyButton>
+        <Link href="/dashboard/links/new">
+          <MyButton className="font-semibold">
+            <BiPlus size={20} />
+            <p>Create link</p>
+          </MyButton>
+        </Link>
       </div>
 
       <Divider />

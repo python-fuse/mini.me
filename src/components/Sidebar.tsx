@@ -24,7 +24,7 @@ const Sidebar = () => {
 
   return (
     <SidebarProvider>
-      <div
+      <aside
         className={`relative ${
           isOpen ? "w-1/6 items-start" : "w-20 items-center"
         } flex p-4 flex-col space-y-4 duration-300 bg-white h-screen border-r border-tertiary-500`}
@@ -74,7 +74,7 @@ const Sidebar = () => {
             />
           ))}
         </div>
-      </div>
+      </aside>
     </SidebarProvider>
   );
 };

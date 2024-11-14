@@ -19,6 +19,20 @@ export const OPTIONS: AuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET ?? "",
     }),
   ],
+  callbacks: {
+    async session({ session, user, token }) {
+      // fetch id from db where email = user.email
+      const dbUser = await prisma.user.findUnique({
+        where: {
+          email: user.email,
+        },
+      });
+      if (session.user && dbUser) {
+        session.user.id = dbUser.id;
+      }
+      return session;
+    },
+  },
 };
 
 export const handler = NextAuth(OPTIONS);

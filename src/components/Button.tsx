@@ -9,6 +9,7 @@ interface ButtonProps {
   className?: string;
   children: React.ReactNode;
   onClick?: () => void;
+  type?: "button" | "submit";
 }
 
 const MyButton: React.FC<ButtonProps> = ({
@@ -16,12 +17,14 @@ const MyButton: React.FC<ButtonProps> = ({
   className,
   children,
   onClick,
+  type = "button",
 }) => {
   return (
     <Button
       className={`flex items-center normal-case font-normal gap-x-1 ${className}`}
       variant="contained"
       onClick={onClick}
+      type={type}
     >
       {loading === true ? <Spinner /> : children}
     </Button>

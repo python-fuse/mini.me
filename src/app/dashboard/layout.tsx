@@ -10,10 +10,10 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
     redirect("/login");
   }
   return (
-    <div className="flex">
+    <div className="flex overflow-y-hidden">
       <SidebarWrapper />
 
-      <div className="flex-1 w-5/6">
+      <div className="flex-1 w-5/6 overflow-y-hidden">
         <Header />
         {children}
       </div>

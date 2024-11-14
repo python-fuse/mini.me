@@ -46,7 +46,7 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
               {link.clicks}
             </div>
 
-            <div className="flex gap-x-1 text-sm" title="Clicks">
+            <div className="flex gap-x-1 text-sm" title="Date created">
               <BiCalendar className="" size={20} />
               {format(new Date(link.createdAt), "MMM dd, yyyy")}
             </div>
