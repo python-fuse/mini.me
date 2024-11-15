@@ -11,13 +11,14 @@ import { fetchQrCode, fetchUrlTitle } from "@/src/utils/fetchPageTitle";
 import useFetch from "@/src/hooks/useFetch";
 import { URL } from "@prisma/client";
 import { uuid } from "uuidv4";
+import { generateQrCode, getMetadata } from "@/src/utils/newLinkUtils";
 
 const page = () => {
   const [session, setSession] = useState<Session | null>(null);
-  const [metadata, setMetadata] = useState<any>();
 
   const metadaFetch = useFetch();
   const qrCodeFetch = useFetch();
+  const submitFetch = useFetch();
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -44,36 +45,50 @@ const page = () => {
     onSubmit: (values) => handleSubmit(values),
   });
 
-  useEffect(() => {
-    if (metadata && !formik.values.title) {
-      formik.setFieldValue("title", metadata.title);
+  const populateform = async (values: {
+    link: string;
+    title: string;
+    domain: string;
+    customPath: string;
+    qrCode: boolean;
+  }) => {
+    submitFetch.display_loading();
+
+    let qrCode = "";
+    let title = values.title;
+
+    if (!values.title) {
+      let fetchedTitle = await getMetadata(values.link, metadaFetch);
+      formik.setFieldValue("title", fetchedTitle);
+      title = fetchedTitle || `${values.link.split("/")[2]} - untitled`;
     }
-  }, [metadata, formik.values.title]);
 
-  const getMetadata = async (url: string) => {
-    try {
-      metadaFetch.display_loading();
-      const response: { title: string } = await fetchUrlTitle(url);
-
-      setMetadata(response);
-
-      metadaFetch.display_success("Metadata fetched successfully");
-    } catch (error) {
-      metadaFetch.display_error(error as any);
+    if (values.qrCode) {
+      qrCode = await generateQrCode(values.link);
+      console.log(qrCode);
     }
-  };
 
-  const generateQrCode = async (url: string) => {
-    try {
-      qrCodeFetch.display_loading();
-      const response = await fetchQrCode(url);
-      console.log(response);
+    const randomPath = Math.random().toString(36).substring(2, 8);
 
-      qrCodeFetch.display_success("QR Code generated successfully");
-      return response.qrCode;
-    } catch (error) {
-      qrCodeFetch.display_error(error as any);
+    if (!values.customPath) {
+      formik.setFieldValue("customPath", randomPath);
     }
+
+    console.log(formik.values);
+
+    const data: Omit<URL, "createdAt" | "updatedAt" | "clicks"> = {
+      id: uuid(),
+      userId: session?.user.id ?? "",
+      original_url: values.link,
+      title: title,
+      short_url: `${values.domain}/${randomPath}`,
+      qrCode: values.qrCode ? qrCode : "",
+
+      // TODO: Get favicon with google secret api
+      urlIcon: `${values.link}/${"favicon.ico"}`,
+    };
+
+    console.log(data);
   };
 
   const handleSubmit = async (values: {
@@ -83,29 +98,21 @@ const page = () => {
     customPath: string;
     qrCode: boolean;
   }) => {
-    const randomPath = Math.random().toString(36).substring(2, 8);
-    let qrCode = "";
-
-    if (!values.title) {
-      await getMetadata(values.link);
+    try {
+      submitFetch.setLoading(true);
+      await populateform(values);
+    } catch (error) {
+      submitFetch.display_error(error as any);
+      formik.setValues({
+        link: values.link,
+        title: "",
+        domain: "http://localhost:3000",
+        customPath: "",
+        qrCode: values.qrCode,
+      });
+    } finally {
+      submitFetch.setLoading(false);
     }
-
-    if (values.qrCode) {
-      qrCode = await generateQrCode(values.link);
-      console.log(qrCode);
-    }
-
-    const data: Omit<URL, "createdAt" | "updatedAt" | "clicks"> = {
-      id: uuid(),
-      userId: session?.user?.id ?? "",
-      original_url: values.link,
-      title: values.title,
-      short_url: `${values.domain}/${values.customPath ?? randomPath}`,
-      qrCode: values.qrCode ? qrCode : "",
-      urlIcon: `${values.link}/${"favicon.ico"}`,
-    };
-
-    console.log(data);
   };
 
   return (
@@ -163,7 +170,12 @@ const page = () => {
 
           <Switch {...formik.getFieldProps("qrCode")} />
         </div>
-        <MyButton type="submit">Create</MyButton>
+
+        {session && (
+          <MyButton type="submit" loading={submitFetch.loading}>
+            Create
+          </MyButton>
+        )}
       </form>
     </section>
   );

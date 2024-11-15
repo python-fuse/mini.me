@@ -21,10 +21,11 @@ const MyButton: React.FC<ButtonProps> = ({
 }) => {
   return (
     <Button
-      className={`flex items-center normal-case font-normal gap-x-1 ${className}`}
+      className={`flex items-center normal-case font-normal gap-x-1 ${className} `}
       variant="contained"
       onClick={onClick}
       type={type}
+      disabled={loading}
     >
       {loading === true ? <Spinner /> : children}
     </Button>
