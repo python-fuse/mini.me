@@ -12,9 +12,10 @@ import { URL } from "@prisma/client";
 import { uuid } from "uuidv4";
 import { generateQrCode, getMetadata } from "@/src/utils/newLinkUtils";
 import { createLink } from "@/src/data/linkQueries";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   const [session, setSession] = useState<Session | null>(null);
 
   const metadaFetch = useFetch();
@@ -101,6 +102,8 @@ const page = () => {
       submitFetch.setLoading(true);
       const data = await populateform(values);
       await createLink(data);
+
+      return router.push(`/dashboard/links/${data.id}`);
     } catch (error) {
       submitFetch.display_error(error as any);
       formik.setValues({

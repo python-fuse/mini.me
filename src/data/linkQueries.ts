@@ -5,16 +5,18 @@ export const createLink = async (
   data: Omit<TURL, "createdAt" | "updatedAt" | "clicks">
 ) => {
   try {
-    await fetch("/api/links/createLink", {
+    const res = await fetch("/api/links/createLink", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    return redirect(`/dashboard/links/${data.id}`);
+
+    return res;
   } catch (error) {
     console.error("Error creating link:", error);
+    return error;
   }
 };
 
