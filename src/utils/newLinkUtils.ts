@@ -21,17 +21,12 @@ export const generateQrCode = async (url: string) => {
   } catch (error) {}
 };
 
-export const getFavicon = async (url: string) => {
+export const getFaviconUrl = (url: string) => {
   try {
     const domain = url.split("/")[2];
-
-    const response = await fetch(
-      `https://www.google.com/s2/favicons?domain=${domain}`
-    );
-    console.log(response.json());
-
-    return response.json();
+    return `https://www.google.com/s2/favicons?domain=${domain}`;
   } catch (error) {
-    console.error(error as any);
+    // Fallback to a default favicon
+    return "/default-favicon.ico";
   }
 };

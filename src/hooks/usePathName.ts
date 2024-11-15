@@ -7,6 +7,6 @@ const usePath = () => {
 
   if (segments.length === 1) return segments[0];
 
-  return segments[segments.length - 1];
+  return segments[1];
 };
 export default usePath;

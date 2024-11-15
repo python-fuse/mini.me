@@ -10,11 +10,9 @@ import { Session } from "next-auth";
 import useFetch from "@/src/hooks/useFetch";
 import { URL } from "@prisma/client";
 import { uuid } from "uuidv4";
-import {
-  generateQrCode,
-  getFavicon,
-  getMetadata,
-} from "@/src/utils/newLinkUtils";
+import { generateQrCode, getMetadata } from "@/src/utils/newLinkUtils";
+import { createLink } from "@/src/data/linkQueries";
+import { redirect } from "next/navigation";
 
 const page = () => {
   const [session, setSession] = useState<Session | null>(null);
@@ -85,12 +83,11 @@ const page = () => {
       original_url: values.link,
       title: title,
       short_url: `${values.domain}/${randomPath}`,
-
-      // TODO: Get favicon with google secret api
-      urlIcon: await getFavicon(values.link),
+      qrCode: values.qrCode ? qrCode : "",
     };
 
     console.log(data);
+    return data;
   };
 
   const handleSubmit = async (values: {
@@ -102,7 +99,8 @@ const page = () => {
   }) => {
     try {
       submitFetch.setLoading(true);
-      await populateform(values);
+      const data = await populateform(values);
+      await createLink(data);
     } catch (error) {
       submitFetch.display_error(error as any);
       formik.setValues({
