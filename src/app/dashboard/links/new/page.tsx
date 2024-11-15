@@ -1,17 +1,20 @@
 "use client";
 
 import { Switch, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MyButton from "../../../../components/Button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { fetchQrCode, fetchUrlTitle } from "@/src/utils/fetchPageTitle";
 import useFetch from "@/src/hooks/useFetch";
 import { URL } from "@prisma/client";
 import { uuid } from "uuidv4";
-import { generateQrCode, getMetadata } from "@/src/utils/newLinkUtils";
+import {
+  generateQrCode,
+  getFavicon,
+  getMetadata,
+} from "@/src/utils/newLinkUtils";
 
 const page = () => {
   const [session, setSession] = useState<Session | null>(null);
@@ -82,10 +85,9 @@ const page = () => {
       original_url: values.link,
       title: title,
       short_url: `${values.domain}/${randomPath}`,
-      qrCode: values.qrCode ? qrCode : "",
 
       // TODO: Get favicon with google secret api
-      urlIcon: `${values.link}/${"favicon.ico"}`,
+      urlIcon: await getFavicon(values.link),
     };
 
     console.log(data);

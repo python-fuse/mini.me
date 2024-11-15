@@ -20,3 +20,18 @@ export const generateQrCode = async (url: string) => {
     return response.qrCode;
   } catch (error) {}
 };
+
+export const getFavicon = async (url: string) => {
+  try {
+    const domain = url.split("/")[2];
+
+    const response = await fetch(
+      `https://www.google.com/s2/favicons?domain=${domain}`
+    );
+    console.log(response.json());
+
+    return response.json();
+  } catch (error) {
+    console.error(error as any);
+  }
+};

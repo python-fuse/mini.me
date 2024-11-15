@@ -33,7 +33,6 @@ model URL {
     updatedAt    DateTime    @updatedAt
     userId       String?
     qrCode       String?
-    urlIcon      String?
     analytics    Analytics[]
 }
 
