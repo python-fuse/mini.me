@@ -7,6 +7,7 @@ import ActionButton from "@/src/components/ActionButton";
 import { FiShare } from "react-icons/fi";
 import { useModal } from "@/src/contexts/ModalContext";
 import ShareModal from "@/src/components/modals/ShareModal";
+import { getFaviconUrl } from "../utils/newLinkUtils";
 
 interface LinkCardProps {
   link: URL;
@@ -22,21 +23,32 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
       <div className="w-3/4 flex space-x-4">
         <div className="h-10 grid place-content-center overflow-hidden shrink-0 w-10 rounded-full border border-accent-400">
           <img
-            src={link.urlIcon ?? ""}
+            src={getFaviconUrl(link.original_url)}
             alt={link.original_url}
             className="bg-cover h-10 w-10 bg-center"
           />
         </div>
         <div className="flex flex-1 flex-col overflow-hidden gap-y-1 ">
-          <h2 className="text-xl font-semibold truncate ">{link.title}</h2>
+          <Link href={`/dashboard/links/${link.id}  `}>
+            <h2 className="text-xl font-semibold truncate hover:text-tertiary-400 duration-300 ">
+              {link.title}
+            </h2>
+          </Link>
           <Link
-            className="text-xs text-accent-300 font-semibold  truncate"
+            className="text-xs hover:underline text-accent-300 font-semibold  truncate"
             href={link.short_url}
+            target="_blank"
+            rel=" noopener "
           >
-            {link.short_url.replace("https://", "")}
+            {link.short_url.replace("http://", "")}
           </Link>
 
-          <Link className="text-sm  truncate" href={link.original_url}>
+          <Link
+            className="text-sm  truncate hover:underline"
+            href={link.original_url}
+            target="_blank"
+            rel=" noopener "
+          >
             {link.original_url}
           </Link>
 
@@ -53,7 +65,7 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
           </div>
         </div>
       </div>
-      <div className="w-1/4 h-10 flex space-x-2">
+      <div className="w-1/4 h-10 flex justify-end space-x-2">
         <ActionButton
           onClick={() => {
             navigator.clipboard.writeText(link.short_url);

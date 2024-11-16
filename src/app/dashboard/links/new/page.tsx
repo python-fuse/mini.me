@@ -79,7 +79,7 @@ const page = () => {
     console.log(formik.values);
 
     const data: Omit<URL, "createdAt" | "updatedAt" | "clicks"> = {
-      id: uuid(),
+      id: randomPath,
       userId: session?.user.id ?? "",
       original_url: values.link,
       title: title,

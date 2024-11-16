@@ -29,11 +29,23 @@ export const fetchLinkData = async (link: string) => {
 };
 
 export const fetchAllLinks = async (userId: string) => {
-  await prisma.uRL.findMany({
-    where: {
-      userId,
-    },
-  });
+  try {
+    const res = await fetch(`/api/links?userId=${userId}`);
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching links:", error);
+    return error;
+  }
+};
+
+export const fetchLink = async (urlId: string) => {
+  try {
+    const res = await fetch(`/api/links?urlId=${urlId}`);
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching link:", error);
+    return error;
+  }
 };
 
 export const updateURLTitle = async (id: string, title: string) => {

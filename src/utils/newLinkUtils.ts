@@ -24,7 +24,7 @@ export const generateQrCode = async (url: string) => {
 export const getFaviconUrl = (url: string) => {
   try {
     const domain = url.split("/")[2];
-    return `https://www.google.com/s2/favicons?domain=${domain}`;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
   } catch (error) {
     // Fallback to a default favicon
     return "/default-favicon.ico";
