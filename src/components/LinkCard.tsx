@@ -8,6 +8,8 @@ import { FiShare } from "react-icons/fi";
 import { useModal } from "@/src/contexts/ModalContext";
 import ShareModal from "@/src/components/modals/ShareModal";
 import { getFaviconUrl } from "../utils/newLinkUtils";
+import CopyButton from "./CopyButton";
+import ShareButton from "./ShareButton";
 
 interface LinkCardProps {
   link: URL;
@@ -23,8 +25,8 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
       <div className="w-3/4 flex space-x-4">
         <div className="h-10 grid place-content-center overflow-hidden shrink-0 w-10 rounded-full border border-accent-400">
           <img
-            src={getFaviconUrl(link.original_url)}
-            alt={link.original_url}
+            src={getFaviconUrl(link.original_url) || ""}
+            alt={link.title[0].toUpperCase()}
             className="bg-cover h-10 w-10 bg-center"
           />
         </div>
@@ -66,24 +68,9 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
         </div>
       </div>
       <div className="w-1/4 h-10 flex justify-end space-x-2">
-        <ActionButton
-          onClick={() => {
-            navigator.clipboard.writeText(link.short_url);
-          }}
-        >
-          <BiCopy size={16} />
-          <p className="text-sm">Copy</p>
-        </ActionButton>
+        <CopyButton data={link.short_url} />
 
-        <ActionButton
-          onClick={() => {
-            // Implement share functionality
-            openModal();
-          }}
-        >
-          <FiShare size={16} />
-          <p className="text-sm">Share</p>
-        </ActionButton>
+        <ShareButton openModal={openModal} />
       </div>
     </div>
   );

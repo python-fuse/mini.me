@@ -14,7 +14,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-x-2 bg-accent-600 border border-tertiary text-sm p-2 rounded-md ${className}`}
+      className={`flex items-center gap-x-2 hover:bg-tertiary-600/40 duration-300 bg-accent-600 border border-tertiary text-sm p-2 rounded-md ${className}`}
     >
       {children}
     </button>

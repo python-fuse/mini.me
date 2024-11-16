@@ -60,9 +60,18 @@ export const updateURLTitle = async (id: string, title: string) => {
 };
 
 export const deleteURL = async (id: string) => {
-  await prisma.uRL.delete({
-    where: {
-      id,
-    },
-  });
+  try {
+    const res = await fetch(`/api/links/deleteLink`, {
+      method: "DELETE",
+      body: JSON.stringify({ id }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res;
+  } catch (error) {
+    console.error("Error deleting link:", error);
+    return error;
+  }
 };

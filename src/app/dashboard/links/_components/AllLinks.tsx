@@ -44,10 +44,10 @@ const AllLinks = () => {
     <>
       {linksFetch.loading ? (
         <div className="flex flex-col space-y-4">
-          {[...Array(3)].map((item) => {
+          {[...Array(3)].map((item, idx) => {
             return (
               <Skeleton
-                key={item}
+                key={idx}
                 variant="rectangular"
                 height={156}
                 width="100%"
@@ -65,7 +65,7 @@ const AllLinks = () => {
             );
           })}
         </div>
-      ) : links ? (
+      ) : links!.length > 0 ? (
         <ModalProvider>
           <div className="flex flex-col space-y-4">
             {links?.map((link) => (

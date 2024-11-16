@@ -6,6 +6,8 @@ import useFetch from "@/src/hooks/useFetch";
 import { URL as TURL } from "@prisma/client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import LinkDetail from "./_components/LinkDetail";
+import { ModalProvider } from "@/src/contexts/ModalContext";
 
 const page = () => {
   const { urlID } = useParams();
@@ -29,12 +31,18 @@ const page = () => {
 
   return (
     <>
-      {linkFetch.loading && <Spinner />}
-      {linkData && (
-        <div>
-          <h1>{linkData.title}</h1>
-          <p>{linkData.original_url}</p>
+      {linkFetch.loading && (
+        <div className="flex items-center place-content-center h-full">
+          <Spinner />
         </div>
+      )}
+      {linkData ? (
+        <ModalProvider>
+          {" "}
+          <LinkDetail link={linkData} />
+        </ModalProvider>
+      ) : (
+        <p>Something went wrong</p>
       )}
     </>
   );
