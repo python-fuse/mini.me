@@ -20,14 +20,6 @@ export const createLink = async (
   }
 };
 
-export const fetchLinkData = async (link: string) => {
-  await prisma.uRL.findFirst({
-    where: {
-      short_url: link,
-    },
-  });
-};
-
 export const fetchAllLinks = async (userId: string) => {
   try {
     const res = await fetch(`/api/links?userId=${userId}`);

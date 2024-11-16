@@ -25,6 +25,9 @@ const handler = async (req: NextRequest, res: NextResponse) => {
       where: {
         userId: userId,
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
 
     return Response.json(links, { status: 200 });

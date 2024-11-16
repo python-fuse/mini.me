@@ -13,6 +13,7 @@ import { uuid } from "uuidv4";
 import { generateQrCode, getMetadata } from "@/src/utils/newLinkUtils";
 import { createLink } from "@/src/data/linkQueries";
 import { useRouter } from "next/navigation";
+import { BiChevronLeft } from "react-icons/bi";
 
 const page = () => {
   const router = useRouter();
@@ -119,7 +120,14 @@ const page = () => {
   };
 
   return (
-    <section className="mx-auto py-10 flex flex-col gap-y-4 max-w-[60%]">
+    <section className="mx-auto py-5 flex flex-col gap-y-4 max-w-[60%]">
+      <div
+        className="flex space-x-2 items-center hover:underline cursor-pointer"
+        onClick={() => router.push("/dashboard/links")}
+      >
+        <BiChevronLeft size={18} />
+        Back
+      </div>
       <h2 className="text-4xl text-black/80 font-bold ">New link</h2>
       <p>*Minifying your links increase leads by 70%</p>
 

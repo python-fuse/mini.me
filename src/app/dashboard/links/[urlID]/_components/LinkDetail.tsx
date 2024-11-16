@@ -2,6 +2,7 @@
 
 import ActionButton from "@/src/components/ActionButton";
 import CopyButton from "@/src/components/CopyButton";
+import ConfirmModal from "@/src/components/modals/ConfirmModal";
 import ShareModal from "@/src/components/modals/ShareModal";
 import ShareButton from "@/src/components/ShareButton";
 import { useModal } from "@/src/contexts/ModalContext";
@@ -114,6 +115,21 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ link }) => {
             <BiCalendar className="" size={20} />
             {format(new Date(link.createdAt), "MMMM dd, yyyy HH:mm a")}
           </div>
+        </div>
+      </div>
+
+      {/* Link QR card */}
+      <div className="flex flex-col rounded-md p-6 gap-y-2 bg-white">
+        <h2 className="text-lg font-bold text-black/80">QR Code</h2>
+
+        <div className="flex gapx-2">
+          {link.qrCode ? (
+            <div className="rounded-lg overflow-hidden border-primary border">
+              <Image height={200} width={200} src={link.qrCode} alt={"QR"} />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

@@ -42,7 +42,7 @@ const page = () => {
           <LinkDetail link={linkData} />
         </ModalProvider>
       ) : (
-        <p>Something went wrong</p>
+        !linkFetch.loading && <p>Something went wrong</p>
       )}
     </>
   );
