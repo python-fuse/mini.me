@@ -15,7 +15,7 @@ import { createLink } from "@/src/data/linkQueries";
 import { useRouter } from "next/navigation";
 import { BiChevronLeft } from "react-icons/bi";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [session, setSession] = useState<Session | null>(null);
 
@@ -194,4 +194,4 @@ const page = () => {
     </section>
   );
 };
-export default page;
+export default Page;

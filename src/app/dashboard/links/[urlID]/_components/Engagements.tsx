@@ -23,7 +23,7 @@ const Engagements = ({ id }: { id: string }) => {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
   return (
     <div className="flex flex-col gap-y-2 w-full h-[300px] p-4">
       <h2 className="text-lg font-bold text-black/80">Engagements</h2>
