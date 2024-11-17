@@ -110,7 +110,10 @@ const page = () => {
       formik.setValues({
         link: values.link,
         title: "",
-        domain: "http://localhost:3000",
+        domain:
+          process.env.NODE_ENV == "development"
+            ? "http://localhost:3000"
+            : process.env.NEXT_PUBLIC_DOMAIN ?? "",
         customPath: "",
         qrCode: values.qrCode,
       });
