@@ -9,7 +9,7 @@ const Engagements = ({ id }: { id: string }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: object = await getUrlStats(id);
+      const data: any = await getUrlStats(id);
 
       const transformedData = data.dailyStats.map((item: DailyStat) => {
         return {
