@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import LinkDetail from "./_components/LinkDetail";
 import { ModalProvider } from "@/src/contexts/ModalContext";
 
-const page = () => {
+const Page = () => {
   const { urlID } = useParams();
   const [linkData, setLinkData] = useState<TURL | null>();
   const linkFetch = useFetch({ loading: true });
@@ -48,4 +48,4 @@ const page = () => {
     </>
   );
 };
-export default page;
+export default Page;
