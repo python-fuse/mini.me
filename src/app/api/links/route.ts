@@ -17,6 +17,9 @@ const handler = async (req: NextRequest, res: NextResponse) => {
         where: {
           id: urlId,
         },
+        include: {
+          analytics: true,
+        },
       });
 
       return Response.json(link, { status: 200 });

@@ -1,8 +1,8 @@
 "use client";
 
 import ActionButton from "@/src/components/ActionButton";
+import MyButton from "@/src/components/Button";
 import CopyButton from "@/src/components/CopyButton";
-import ConfirmModal from "@/src/components/modals/ConfirmModal";
 import ShareModal from "@/src/components/modals/ShareModal";
 import ShareButton from "@/src/components/ShareButton";
 import { useModal } from "@/src/contexts/ModalContext";
@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BiBarChart, BiCalendar, BiChevronLeft } from "react-icons/bi";
 import { FaPen, FaTrash } from "react-icons/fa";
+import Engagements from "./Engagements";
+import Locations from "./Locations";
 
 interface LinkDetailProps {
   link: URL;
@@ -128,9 +130,26 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ link }) => {
               <Image height={200} width={200} src={link.qrCode} alt={"QR"} />
             </div>
           ) : (
-            ""
+            <div className="flex gap-x-4">
+              <div className="rounded-lg overflow-hidden border-primary h-[200px] w-[200px] border text-center place-content-center">
+                No QR Code
+              </div>
+
+              <MyButton onClick={() => "dd"} className="h-max mt-auto">
+                Generate
+              </MyButton>
+            </div>
           )}
         </div>
+      </div>
+
+      {/* Clicks vs date */}
+      <div className="flex flex-col rounded-md p-6 gap-y-2 bg-white">
+        <Engagements id={link.id} />
+      </div>
+
+      <div className="flex flex-col rounded-md p-6 gap-y-2 bg-white">
+        <Locations id={link.id} />
       </div>
     </div>
   );

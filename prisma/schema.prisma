@@ -21,22 +21,63 @@ model User {
     urls              URL[]
 }
 
-// Url model
 model URL {
-    id           String      @id @default(cuid())
+    id           String   @id @default(cuid())
     title        String
     original_url String
-    short_url    String      @unique
-    clicks       Int         @default(0)
-    user         User?       @relation(fields: [userId], references: [id])
-    createdAt    DateTime    @default(now())
-    updatedAt    DateTime    @updatedAt
+    short_url    String   @unique
+    clicks       Int      @default(0)
+    user         User?    @relation(fields: [userId], references: [id])
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
     userId       String?
     qrCode       String?
-    analytics    Analytics[]
+
+    // Pre-aggregated stats
+    dailyStats    DailyStat[]
+    deviceStats   DeviceStat[]
+    locationStats LocationStat[]
+
+    // Raw analytics (keep if needed for detailed analysis)
+    analytics Analytics[]
 }
 
-// Analytics model
+// Pre-aggregated daily statistics
+model DailyStat {
+    id     String   @id @default(cuid())
+    urlId  String
+    date   DateTime @db.Date // Store just the date portion
+    clicks Int      @default(0)
+    url    URL      @relation(fields: [urlId], references: [id], onDelete: Cascade)
+
+    @@unique([urlId, date]) // Prevent duplicate dates for same URL
+}
+
+// Pre-aggregated device statistics
+model DeviceStat {
+    id      String @id @default(cuid())
+    urlId   String
+    browser String
+    os      String
+    device  String
+    clicks  Int    @default(0)
+    url     URL    @relation(fields: [urlId], references: [id], onDelete: Cascade)
+
+    @@unique([urlId, browser, os, device]) // Prevent duplicates
+}
+
+// Pre-aggregated location statistics
+model LocationStat {
+    id      String @id @default(cuid())
+    urlId   String
+    country String
+    city    String
+    clicks  Int    @default(0)
+    url     URL    @relation(fields: [urlId], references: [id], onDelete: Cascade)
+
+    @@unique([urlId, country, city]) // Prevent duplicates
+}
+
 model Analytics {
     id        String   @id @default(cuid())
     urlId     String
@@ -45,9 +86,10 @@ model Analytics {
     device    String
     country   String
     city      String
+    referrer  String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    url       URL      @relation(fields: [urlId], references: [id])
+    url       URL      @relation(fields: [urlId], references: [id], onDelete: Cascade)
 }
 
 model Account {

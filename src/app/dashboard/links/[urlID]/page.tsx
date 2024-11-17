@@ -19,6 +19,7 @@ const page = () => {
       try {
         const data = await fetchLink(urlID as string);
         setLinkData(data);
+        console.log(data);
       } catch (e) {
         console.log(e);
       } finally {

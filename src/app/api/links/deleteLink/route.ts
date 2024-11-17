@@ -13,6 +13,12 @@ const handler = async (req: NextRequest, res: NextResponse) => {
   }
 
   try {
+    await prisma.analytics.deleteMany({
+      where: {
+        urlId: id.id,
+      },
+    });
+
     await prisma.uRL.delete({
       where: {
         id: id.id,
