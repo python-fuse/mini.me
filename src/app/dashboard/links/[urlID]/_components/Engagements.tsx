@@ -31,7 +31,7 @@ const Engagements = ({ id }: { id: string }) => {
       {dailyStats && (
         <ResponsiveContainer width={"100%"} height="100%">
           <BarChart data={dailyStats} width={150} height={10}>
-            <Bar dataKey="clicks" fill="#024efc" />
+            <Bar dataKey="clicks" fill="#024efc" barSize={30} />
             <XAxis dataKey="date" />
             <YAxis />
           </BarChart>

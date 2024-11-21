@@ -38,7 +38,6 @@ function getClientIP(request: NextRequest): string {
   return "Unknown";
 }
 const getGeoData = async (ip: string) => {
-  ip = "105.112.214.165";
   try {
     if (process.env.NODE_ENV === "development") {
       ip = "105.112.214.165";
