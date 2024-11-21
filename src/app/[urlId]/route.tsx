@@ -38,12 +38,13 @@ function getClientIP(request: NextRequest): string {
   return "Unknown";
 }
 const getGeoData = async (ip: string) => {
+  ip = "105.112.214.165";
   try {
     if (process.env.NODE_ENV === "development") {
-      return { country: "Nigeria", city: "Makurdi" };
+      ip = "105.112.214.165";
     }
 
-    const res = await fetch(`http://api.ip-api.com/json/${ip}`);
+    const res = await fetch(`http://ip-api.com/json/${ip}`);
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
@@ -62,7 +63,7 @@ const recordClick = async (clickData: ClickData) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  await prisma.$transaction(async (tx) => {
+  const res = await prisma.$transaction(async (tx) => {
     // create raw analytics entry
     await tx.analytics.create({
       data: {
@@ -148,6 +149,8 @@ const recordClick = async (clickData: ClickData) => {
       },
     });
   });
+
+  console.log("Upsert result:", res);
 };
 
 export async function GET(
