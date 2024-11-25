@@ -74,7 +74,10 @@ export async function getDashboardStats(userId: string) {
 }
 
 // UPDATE actions
-export async function updateUrl(id: string, data: { title: string }) {
+export async function updateUrl(
+  id: string,
+  data: { title: string; short_url: string; original_url: string }
+) {
   const url = await prisma.uRL.update({
     where: { id },
     data,
