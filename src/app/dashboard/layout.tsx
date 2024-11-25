@@ -11,14 +11,14 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="flex overflow-y-hidden h-screen">
+    <main className="flex overflow-y-hidden h-screen">
       <SidebarWrapper />
 
       <div className="flex-1 w-5/6 overflow-y-auto">
         <Header />
         <div className="overflow-y-auto">{children}</div>
       </div>
-    </div>
+    </main>
   );
 };
 export default layout;

@@ -10,9 +10,11 @@ import MyButton from "./Button";
 import usePath from "../hooks/usePathName";
 import { SidebarProvider, useSidebar } from "../contexts/SidebarContext";
 import { BiChevronLeft, BiChevronRight, BiPlus } from "react-icons/bi";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const activePath = usePath();
+  const router = useRouter();
 
   const { isOpen, close, open } = useSidebar();
 
@@ -55,8 +57,11 @@ const Sidebar = () => {
           )}
         </div>
 
-        <MyButton className="w-full font-semibold text-nowrap ">
-          <BiPlus size={20} />
+        <MyButton
+          className="w-full font-semibold text-nowrap py-2"
+          onClick={() => router.push("/dashboard/links/new")}
+        >
+          <BiPlus size={24} />
           {isOpen && <p>Create link</p>}
         </MyButton>
 

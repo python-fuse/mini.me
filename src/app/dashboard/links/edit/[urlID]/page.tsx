@@ -94,7 +94,7 @@ const Page = () => {
     <section className="mx-auto py-5 flex flex-col gap-y-4 max-w-[60%]">
       <div
         className="flex space-x-2 items-center hover:underline cursor-pointer"
-        onClick={() => router.push("/dashboard/links")}
+        onClick={() => router.back()}
       >
         <BiChevronLeft size={18} />
         Back
