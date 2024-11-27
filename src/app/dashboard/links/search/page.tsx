@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BiChevronLeft } from "react-icons/bi";
 
-const page = () => {
+const Page = () => {
   const [results, setResults] = useState<{
     urls: URL[];
     total: number;
@@ -34,7 +34,7 @@ const page = () => {
       }
     };
     search();
-  }, [q]);
+  }, [q, searchFetch]);
 
   return (
     <div className="px-20 py-10 flex flex-col gap-y-4 overflow-y-scroll">
@@ -62,4 +62,4 @@ const page = () => {
     </div>
   );
 };
-export default page;
+export default Page;
