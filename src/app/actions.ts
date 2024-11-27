@@ -97,7 +97,6 @@ export const searchUrl = async ({
   limit = 10,
 }: SearchParams) => {
   const skip = (page - 1) * limit;
-
   try {
     const urls = await prisma.uRL.findMany({
       where: {
@@ -125,7 +124,8 @@ export const searchUrl = async ({
           },
         ],
       },
-      take: limit, // Use the limit parameter
+
+      take: 10,
       skip: skip,
       orderBy: {
         createdAt: "desc",
@@ -134,18 +134,9 @@ export const searchUrl = async ({
 
     const total = await prisma.uRL.count({
       where: {
-        userId: {
-          equals: userId,
-        },
         OR: [
           {
             title: {
-              contains: query,
-              mode: "insensitive",
-            },
-          },
-          {
-            short_url: {
               contains: query,
               mode: "insensitive",
             },
@@ -156,7 +147,18 @@ export const searchUrl = async ({
               mode: "insensitive",
             },
           },
+          {
+            short_url: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
         ],
+        AND: {
+          userId: {
+            equals: userId,
+          },
+        },
       },
     });
 
