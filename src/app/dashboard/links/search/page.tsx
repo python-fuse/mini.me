@@ -51,7 +51,9 @@ const Page = () => {
         </div>
       ) : (
         <>
-          <h1 className="text-2xl font-bold">Search results for "{q}"</h1>
+          <h1 className="text-2xl font-bold">
+            Search results for &quot;{q}&quot;
+          </h1>
           <div className="flex flex-col gap-y-4">
             {results?.urls.map((url) => (
               <LinkCard key={url.id} link={url} />
