@@ -5,6 +5,8 @@ import LinkCard from "@/src/components/LinkCard";
 import Spinner from "@/src/components/Spinner";
 import useFetch from "@/src/hooks/useFetch";
 import { URL } from "@prisma/client";
+import { Session } from "next-auth";
+import { getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BiChevronLeft } from "react-icons/bi";
@@ -15,6 +17,7 @@ const Page = () => {
     total: number;
     hasMore: boolean;
   }>();
+  const [session, setSession] = useState<Session | null>();
   const params = useSearchParams();
   const q = params.get("q");
   const router = useRouter();
@@ -22,9 +25,21 @@ const Page = () => {
   const searchFetch = useFetch({ loading: true });
 
   useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+
+    fetchSession();
+  }, []);
+
+  useEffect(() => {
     const search = async () => {
       try {
-        const res: any = await searchUrl({ query: q as string });
+        const res: any = await searchUrl({
+          query: q as string,
+          userId: session?.user?.id as string,
+        });
         console.log(res);
         setResults(res);
       } catch (e) {

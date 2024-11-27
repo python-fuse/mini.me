@@ -18,6 +18,7 @@ export interface ClickData {
 
 export type SearchParams = {
   query: string;
+  userId: string;
   page?: number;
   limit?: number;
 };

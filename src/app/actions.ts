@@ -92,6 +92,7 @@ export async function updateUrl(
 
 export const searchUrl = async ({
   query,
+  userId,
   page = 1,
   limit = 10,
 }: SearchParams) => {
@@ -119,7 +120,13 @@ export const searchUrl = async ({
             },
           },
         ],
+        AND: {
+          userId: {
+            equals: userId,
+          },
+        },
       },
+
       take: 10,
       skip: skip,
       orderBy: {
