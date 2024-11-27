@@ -2,6 +2,7 @@
 
 import { prisma } from "@/prisma/prisma";
 import { revalidatePath } from "next/cache";
+import { SearchParams } from "../utils/definitions";
 
 export async function getUrl(id: string) {
   return await prisma.uRL.findUnique({
@@ -86,3 +87,77 @@ export async function updateUrl(
   revalidatePath(`/urls/${id}`);
   return url;
 }
+
+// Search urls
+
+export const searchUrl = async ({
+  query,
+  page = 1,
+  limit = 10,
+}: SearchParams) => {
+  const skip = (page - 1) * limit;
+  try {
+    const urls = await prisma.uRL.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            short_url: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            original_url: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+      take: 10,
+      skip: skip,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const total = await prisma.uRL.count({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            original_url: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            short_url: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+    });
+
+    return {
+      urls,
+      total,
+      hasMore: skip + urls.length < total,
+    };
+  } catch (e) {
+    throw new Error("Failed to fetch URLs");
+  }
+};

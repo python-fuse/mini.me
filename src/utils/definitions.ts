@@ -15,3 +15,9 @@ export interface ClickData {
   city: string;
   referrer: string;
 }
+
+export type SearchParams = {
+  query: string;
+  page?: number;
+  limit?: number;
+};
