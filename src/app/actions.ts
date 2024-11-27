@@ -97,43 +97,13 @@ export const searchUrl = async ({
   limit = 10,
 }: SearchParams) => {
   const skip = (page - 1) * limit;
+
   try {
     const urls = await prisma.uRL.findMany({
       where: {
         userId: {
           equals: userId,
         },
-        AND: [
-          {
-            title: {
-              contains: query,
-              mode: "insensitive",
-            },
-          },
-          {
-            short_url: {
-              contains: query,
-              mode: "insensitive",
-            },
-          },
-          {
-            original_url: {
-              contains: query,
-              mode: "insensitive",
-            },
-          },
-        ],
-      },
-
-      take: 10,
-      skip: skip,
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-
-    const total = await prisma.uRL.count({
-      where: {
         OR: [
           {
             title: {
@@ -142,7 +112,34 @@ export const searchUrl = async ({
             },
           },
           {
+            short_url: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
             original_url: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+      take: limit, // Use the limit parameter
+      skip: skip,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const total = await prisma.uRL.count({
+      where: {
+        userId: {
+          equals: userId,
+        },
+        OR: [
+          {
+            title: {
               contains: query,
               mode: "insensitive",
             },
@@ -153,12 +150,13 @@ export const searchUrl = async ({
               mode: "insensitive",
             },
           },
-        ],
-        AND: {
-          userId: {
-            equals: userId,
+          {
+            original_url: {
+              contains: query,
+              mode: "insensitive",
+            },
           },
-        },
+        ],
       },
     });
 
