@@ -100,7 +100,10 @@ export const searchUrl = async ({
   try {
     const urls = await prisma.uRL.findMany({
       where: {
-        OR: [
+        userId: {
+          equals: userId,
+        },
+        AND: [
           {
             title: {
               contains: query,
@@ -120,11 +123,6 @@ export const searchUrl = async ({
             },
           },
         ],
-        AND: {
-          userId: {
-            equals: userId,
-          },
-        },
       },
 
       take: 10,
@@ -156,6 +154,11 @@ export const searchUrl = async ({
             },
           },
         ],
+        AND: {
+          userId: {
+            equals: userId,
+          },
+        },
       },
     });
 
