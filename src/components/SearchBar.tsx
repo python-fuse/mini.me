@@ -25,7 +25,7 @@ const SearchBar = () => {
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="outline-none w- bg-transparent text-gray-500"
+          className="outline-none bg-transparent text-gray-500"
         />
       </form>
     </div>

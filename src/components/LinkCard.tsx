@@ -1,10 +1,8 @@
 import { URL } from "@prisma/client";
 import Link from "next/link";
 import { FC } from "react";
-import { BiBarChart, BiCalendar, BiCopy, BiShare } from "react-icons/bi";
+import { BiBarChart, BiCalendar } from "react-icons/bi";
 import { format } from "date-fns";
-import ActionButton from "@/src/components/ActionButton";
-import { FiShare } from "react-icons/fi";
 import { useModal } from "@/src/contexts/ModalContext";
 import ShareModal from "@/src/components/modals/ShareModal";
 import { getFaviconUrl } from "../utils/newLinkUtils";

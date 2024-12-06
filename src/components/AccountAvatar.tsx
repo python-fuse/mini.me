@@ -46,11 +46,11 @@ const AccountAvatar = () => {
           src={session?.user?.image ?? ""}
           alt={session?.user?.name ?? ""}
         />
-        <div className="flex flex-col ">
+        <div className="hidden md:flex flex-col ">
           <p className="font-semibold text-sm">{session?.user?.name}</p>
           {/* <p className="text-gray-400 text-xs ">{session?.user?.email}</p> */}
         </div>
-        <BiChevronDown className="h-6 w-6 " />
+        <BiChevronDown className="h-6 w-6 hidden md:block" />
       </IconButton>
       <Menu
         anchorEl={anchorEl}

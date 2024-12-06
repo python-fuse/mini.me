@@ -52,7 +52,7 @@ const Page = () => {
   }, [q]);
 
   return (
-    <div className="px-20 py-10 flex flex-col gap-y-4 overflow-y-scroll">
+    <div className="px-4 md:px-20py-10 flex flex-col gap-y-4 overflow-y-scroll">
       <div
         className="flex space-x-2 items-center hover:underline cursor-pointer"
         onClick={() => router.push("/dashboard/links")}
