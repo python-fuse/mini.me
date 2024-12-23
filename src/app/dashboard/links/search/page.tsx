@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { searchUrl } from "@/src/app/actions";
-import LinkCard from "@/src/components/LinkCard";
-import Spinner from "@/src/components/Spinner";
-import useFetch from "@/src/hooks/useFetch";
-import { URL } from "@prisma/client";
-import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { BiChevronLeft } from "react-icons/bi";
+import { searchUrl } from '@/src/app/actions';
+import LinkCard from '@/src/components/LinkCard';
+import Spinner from '@/src/components/Spinner';
+import useFetch from '@/src/hooks/useFetch';
+import { URL } from '@prisma/client';
+import { Session } from 'next-auth';
+import { getSession } from 'next-auth/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { BiChevronLeft } from 'react-icons/bi';
 
 const Page = () => {
   const [results, setResults] = useState<{
@@ -19,7 +19,7 @@ const Page = () => {
   }>();
   const [session, setSession] = useState<Session | null>();
   const params = useSearchParams();
-  const q = params.get("q");
+  const q = params.get('q');
   const router = useRouter();
 
   const searchFetch = useFetch({ loading: true });
@@ -52,10 +52,10 @@ const Page = () => {
   }, [q]);
 
   return (
-    <div className="px-4 md:px-20py-10 flex flex-col gap-y-4 overflow-y-scroll">
+    <div className="px-4 md:px-20 py-4 md:py-10 flex flex-col gap-y-2 overflow-y-scroll">
       <div
         className="flex space-x-2 items-center hover:underline cursor-pointer"
-        onClick={() => router.push("/dashboard/links")}
+        onClick={() => router.push('/dashboard/links')}
       >
         <BiChevronLeft size={18} />
         Back
@@ -69,10 +69,11 @@ const Page = () => {
           <h1 className="text-2xl font-bold">
             Search results for &quot;{q}&quot;
           </h1>
+
+          {results?.urls?.length! < 1 && <p>No results</p>}
+
           <div className="flex flex-col gap-y-4">
-            {results?.urls.map((url) => (
-              <LinkCard key={url.id} link={url} />
-            ))}
+            {results?.urls.map((url) => <LinkCard key={url.id} link={url} />)}
           </div>
         </>
       )}
