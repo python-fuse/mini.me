@@ -12,11 +12,14 @@ import { URL } from '@prisma/client';
 import { generateQrCode, getMetadata } from '@/src/utils/newLinkUtils';
 import { createLink } from '@/src/data/linkQueries';
 import { useRouter } from 'next/navigation';
-import { BiChevronLeft } from 'react-icons/bi';
+import { BiChevronLeft, BiQr } from 'react-icons/bi';
+import Image from 'next/image';
+import { generateLiveQR } from '@/src/actions/actions';
 
 const Page = () => {
   const router = useRouter();
   const [session, setSession] = useState<Session | null>(null);
+  const [liveQr, setLiveQR] = useState<string | null>('');
 
   const metadaFetch = useFetch();
   const qrCodeFetch = useFetch();
@@ -49,6 +52,25 @@ const Page = () => {
     }),
     onSubmit: (values) => handleSubmit(values),
   });
+
+  useEffect(() => {
+    const handleLiveQr = async (url: string) => {
+      if (!url) {
+        setLiveQR(null);
+        return;
+      }
+      const res = await generateLiveQR(url);
+      setLiveQR(res);
+    };
+
+    const handler = setTimeout(async () => {
+      await handleLiveQr(formik.values.link);
+    }, 600);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [formik.values.link]);
 
   const populateform = async (values: {
     link: string;
@@ -125,7 +147,7 @@ const Page = () => {
   };
 
   return (
-    <section className="mx-auto py-5 flex flex-col gap-y-4 max-w-[60%]">
+    <section className="mx-auto py-5 flex flex-col gap-y-4 max-w-[80%]">
       <div
         className="flex space-x-2 items-center hover:underline cursor-pointer"
         onClick={() => router.push('/dashboard/links')}
@@ -136,7 +158,7 @@ const Page = () => {
       <h2 className="text-4xl text-black/80 font-bold ">New link</h2>
       <p>*Minifying your links increase leads by 70%</p>
 
-      <div className="flex">
+      <div className="flex justify-between space-x-4">
         <form
           className="bg-white p-6 flex flex-col gap-y-5 rounded-md"
           onSubmit={formik.handleSubmit}
@@ -173,27 +195,31 @@ const Page = () => {
             />
           </div>
 
-          <h3 className="font-semibold text-xl text-black/80">
-            Additional formats
-          </h3>
-
-          <div className="flex justify-between">
-            <div className="flex flex-col gap-y-2">
-              <h3 className="font-semibold text-lg text-black/80">QR Code</h3>
-              <p className=" text-xs text-black/60">
-                Generate a QR code to make sharing more interactive
-              </p>
-            </div>
-
-            <Switch {...formik.getFieldProps('qrCode')} />
-          </div>
-
           {session && (
             <MyButton type="submit" loading={submitFetch.loading}>
               Create
             </MyButton>
           )}
         </form>
+
+        <div className="bg-white p-6 flex flex-col flex-1 gap-y-5 rounded-md place-items-center  justify-center ">
+          <p className="text-2xl self-start"> Live QR</p>
+          {liveQr && (
+            <Image
+              width={200}
+              height={100}
+              // className="w- "
+              src={liveQr}
+              alt={'qr'}
+            />
+          )}
+          {!formik.values.link && (
+            <div className="border text-sm p-4 flex flex-col place-items-center h-full justify-center rounded-md ">
+              <BiQr size={50} />
+              Enter the long URL to generate the QR
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
