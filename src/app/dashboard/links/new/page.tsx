@@ -22,7 +22,6 @@ const Page = () => {
   const [liveQr, setLiveQR] = useState<string | null>('');
 
   const metadaFetch = useFetch();
-  const qrCodeFetch = useFetch();
   const submitFetch = useFetch();
 
   useEffect(() => {
@@ -43,7 +42,6 @@ const Page = () => {
           ? 'http://localhost:3000'
           : 'https://mini-me-kappa.vercel.app',
       customPath: '',
-      qrCode: false,
     },
     validationSchema: Yup.object({
       link: Yup.string().required('Required'),
@@ -77,11 +75,9 @@ const Page = () => {
     title: string;
     domain: string;
     customPath: string;
-    qrCode: boolean;
   }) => {
     submitFetch.display_loading();
 
-    let qrCode = '';
     let title = values.title;
 
     if (!values.title) {
@@ -90,18 +86,11 @@ const Page = () => {
       title = fetchedTitle || `${values.link.split('/')[2]} - untitled`;
     }
 
-    if (values.qrCode) {
-      qrCode = await generateQrCode(values.link);
-      console.log(qrCode);
-    }
-
     const randomPath = Math.random().toString(36).substring(2, 8);
 
     if (!values.customPath) {
       formik.setFieldValue('customPath', randomPath);
     }
-
-    console.log(formik.values);
 
     const data: Omit<URL, 'createdAt' | 'updatedAt' | 'clicks'> = {
       id: randomPath,
@@ -109,7 +98,7 @@ const Page = () => {
       original_url: values.link,
       title: title,
       short_url: `${values.domain}/${randomPath}`,
-      qrCode: values.qrCode ? qrCode : '',
+      qrCode: liveQr,
     };
 
     console.log(data);
@@ -121,7 +110,6 @@ const Page = () => {
     title: string;
     domain: string;
     customPath: string;
-    qrCode: boolean;
   }) => {
     try {
       submitFetch.setLoading(true);
@@ -139,7 +127,6 @@ const Page = () => {
             ? 'http://localhost:3000'
             : 'https://mini-me-kappa.vercel.app',
         customPath: '',
-        qrCode: values.qrCode,
       });
     } finally {
       submitFetch.setLoading(false);
