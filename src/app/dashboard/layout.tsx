@@ -1,4 +1,4 @@
-import Header from '@/src/components/Header';
+import Header from '@/src/components/global/Header';
 import SidebarWrapper from '@/src/components/SidebarWrapper';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';

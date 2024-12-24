@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { BiChevronDown } from "react-icons/bi";
-import AccountAvatar from "./AccountAvatar";
-import SearchBar from "./SearchBar";
-import { SearchProvider } from "../contexts/SearchContext";
+import { BiChevronDown } from 'react-icons/bi';
+import AccountAvatar from './AccountAvatar';
+import SearchBar from './SearchBar';
+import { SearchProvider } from '../../contexts/SearchContext';
 
 const Header = () => {
   return (
