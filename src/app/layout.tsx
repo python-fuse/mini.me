@@ -1,19 +1,18 @@
-import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
-import "./globals.css";
-import SessionProvider from "@/src/contexts/SessionProvider";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+import type { Metadata } from 'next';
+import { Outfit } from 'next/font/google';
+import './globals.css';
+import SessionProvider from '@/src/contexts/SessionProvider';
+import { getServerSession } from 'next-auth';
 
 const poppins = Outfit({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
-  title: "Mini.me - The Miniature URL Shortener",
+  title: 'Mini.me - The Miniature URL Shortener',
   description:
-    "Mini.me - Your quick and simple solution for creating and managing short URLs. Share links effortlessly and keep them organized.",
+    'Mini.me - Your quick and simple solution for creating and managing short URLs. Share links effortlessly and keep them organized.',
 };
 
 export default async function RootLayout({
