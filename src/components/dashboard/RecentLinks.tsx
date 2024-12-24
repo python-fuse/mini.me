@@ -1,13 +1,12 @@
 'use client';
 
 import LinkCard from '../links/LinkCard';
-import { Skeleton } from '@mui/material';
 import { useEffect, useState } from 'react';
 import useFetchLinks from '@/src/hooks/useFetchLinks';
 import { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
 import { ModalProvider } from '@/src/contexts/ModalContext';
-import { URL } from '@prisma/client';
+import { URL as TURL } from '@prisma/client';
 import LinkCardSkeleton from '../global/LinkCardSkeleton';
 
 const RecentLinks = () => {
@@ -36,7 +35,7 @@ const RecentLinks = () => {
         <div className="flex flex-col space-y-4">
           {links
             ?.slice(0, limit)
-            .map((link: URL) => <LinkCard key={link.id} link={link} />)}
+            .map((link: TURL) => <LinkCard key={link.id} link={link} />)}
         </div>
       </ModalProvider>
       {!links.length && (

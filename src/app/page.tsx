@@ -1,6 +1,6 @@
-import { getServerSession } from "next-auth";
-import { signIn, signOut } from "next-auth/react";
-import LogoutBUtton from "../components/LogoutBUtton";
+import { getServerSession } from 'next-auth';
+import { signIn, signOut } from 'next-auth/react';
+import LogoutBUtton from '../components/account/LogoutBUtton';
 
 const page = async () => {
   const session = await getServerSession();
