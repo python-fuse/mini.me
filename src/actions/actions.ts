@@ -1,4 +1,5 @@
 'use server';
+import { prisma } from '@/prisma/prisma';
 import QRCode from 'qrcode';
 
 export const generateLiveQR = async (url: string) => {
@@ -8,4 +9,16 @@ export const generateLiveQR = async (url: string) => {
   });
 
   return qr;
+};
+
+export const getUserTotalCLicks = async (userId: string) => {};
+
+export const getUserTotalLinks = async (userId: string) => {
+  const data = await prisma.uRL.count({
+    where: {
+      userId,
+    },
+  });
+
+  return data;
 };
