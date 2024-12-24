@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import logo from "@/src/assets/normal.png";
-import Image from "next/image";
-import Link from "next/link";
-import NavItem from "./NavItem";
-import { PATHNAMES } from "../utils/constants";
-import MyButton from "./Button";
-import usePath from "../hooks/usePathName";
-import { SidebarProvider, useSidebar } from "../contexts/SidebarContext";
-import { BiChevronLeft, BiChevronRight, BiPlus } from "react-icons/bi";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import logo from '@/src/assets/normal.png';
+import Image from 'next/image';
+import Link from 'next/link';
+import NavItem from './NavItem';
+import { PATHNAMES } from '../utils/constants';
+import MyButton from './Button';
+import usePath from '../hooks/usePathName';
+import { SidebarProvider, useSidebar } from '../contexts/SidebarContext';
+import { BiChevronLeft, BiChevronRight, BiPlus } from 'react-icons/bi';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Sidebar = () => {
   const activePath = usePath();
@@ -20,7 +20,7 @@ const Sidebar = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   const decideDevice = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       if (window.innerWidth < 768) {
         close();
         setIsMobile(true);
@@ -33,15 +33,15 @@ const Sidebar = () => {
 
   useEffect(() => {
     decideDevice();
-    window.addEventListener("resize", decideDevice);
+    window.addEventListener('resize', decideDevice);
     return () => {
-      window.removeEventListener("resize", decideDevice);
+      window.removeEventListener('resize', decideDevice);
     };
   }, []);
 
   const getActivePath = (href: string, activePath: string) => {
-    if (href === "/dashboard" && activePath === "dashboard") return true;
-    if (activePath === href.split("/")[2]) return true;
+    if (href === '/dashboard' && activePath === 'dashboard') return true;
+    if (activePath === href.split('/')[2]) return true;
     return false;
   };
 
@@ -49,7 +49,7 @@ const Sidebar = () => {
     <SidebarProvider>
       <aside
         className={`relative ${
-          isOpen ? "w-1/6 items-start" : "w-20 items-center"
+          isOpen ? 'w-1/6 items-start' : 'w-20 items-center'
         } flex p-4 flex-col space-y-4 duration-300 bg-white h-screen border-r border-tertiary-500`}
       >
         {!isMobile && (
@@ -69,7 +69,7 @@ const Sidebar = () => {
           <Link href="/" className="font-semibold shrink-0">
             <Image
               src={logo}
-              alt={"Mini.me"}
+              alt={'Mini.me'}
               className="w-[40px] flex-shrink-0"
             />
           </Link>
@@ -82,7 +82,7 @@ const Sidebar = () => {
 
         <MyButton
           className="w-full font-semibold text-nowrap py-2"
-          onClick={() => router.push("/dashboard/links/new")}
+          onClick={() => router.push('/dashboard/links/new')}
         >
           <BiPlus size={24} />
           {isOpen && <p>Create link</p>}
@@ -90,16 +90,19 @@ const Sidebar = () => {
 
         <div className="bg-tertiary h-px rounded-md w-full mb-6 lg:mb-4" />
 
-        <div className="flex flex-col w-full gap-y-6 lg:gap-y-4">
+        <div className="flex flex-col w-full gap-y-6 lg:gap-y-4 h-full">
           {PATHNAMES.map((pathname, index) => (
-            <NavItem
-              key={index}
-              href={pathname.href}
-              icon={<pathname.icon size={20} className="flex-shrink-0" />}
-              title={pathname.title}
-              isActive={getActivePath(pathname.href, activePath)}
-              isExpanded={isOpen}
-            />
+            <>
+              {pathname.title === 'Settings' && <div className="mt-auto"></div>}
+              <NavItem
+                key={index}
+                href={pathname.href}
+                icon={<pathname.icon size={20} className="flex-shrink-0" />}
+                title={pathname.title}
+                isActive={getActivePath(pathname.href, activePath)}
+                isExpanded={isOpen}
+              />
+            </>
           ))}
         </div>
       </aside>

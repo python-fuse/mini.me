@@ -5,7 +5,7 @@ const Welcome = async () => {
 
   return (
     <div className="border border-tertiary-500 p-10 flex bg-white flex-col bg">
-      <p className="text-lg tracking-wider">Welcome</p>
+      <p className="text-lg tracking-widest uppercase">Welcome</p>
       <h1 className="text-4xl font-semibold ">{session?.user?.name}</h1>
     </div>
   );

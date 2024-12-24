@@ -11,9 +11,20 @@ export const generateLiveQR = async (url: string) => {
   return qr;
 };
 
-export const getUserTotalCLicks = async (userId: string) => {};
+export const getUserTotalCLicks = async (userId: any) => {
+  const data = await prisma.uRL.aggregate({
+    _sum: {
+      clicks: true,
+    },
+    where: {
+      userId,
+    },
+  });
 
-export const getUserTotalLinks = async (userId: string) => {
+  return data._sum.clicks;
+};
+
+export const getUserTotalLinks = async (userId: any) => {
   const data = await prisma.uRL.count({
     where: {
       userId,
