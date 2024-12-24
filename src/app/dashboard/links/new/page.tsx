@@ -97,7 +97,7 @@ const Page = () => {
       userId: session?.user.id ?? '',
       original_url: values.link,
       title: title,
-      short_url: `${values.domain}/${randomPath}`,
+      short_url: `${values.domain}/l/${formik.values.customPath}`,
       qrCode: liveQr,
     };
 
