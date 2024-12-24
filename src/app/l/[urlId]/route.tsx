@@ -156,6 +156,11 @@ export async function GET(request: NextRequest) {
   const urlId = request.nextUrl.pathname.split('/')[2];
   console.log(urlId);
 
+  // check if we are in /l/ route
+  if (request.nextUrl.pathname.split('/')[1] !== 'l') {
+    return;
+  }
+
   const urlData = await prisma.uRL.findUnique({
     where: {
       id: urlId,
