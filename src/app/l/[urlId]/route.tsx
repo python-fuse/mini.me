@@ -152,10 +152,7 @@ const recordClick = async (clickData: ClickData) => {
   console.log('Upsert result:', res);
 };
 
-export async function middleware(request: NextRequest) {
-  if (!request.nextUrl.pathname.startsWith('/l/')) {
-    return NextResponse.next();
-  }
+export async function GET(request: NextRequest) {
   const urlId = request.nextUrl.pathname.split('/')[2];
   console.log(urlId);
 
@@ -215,7 +212,3 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/error', request.url));
   }
 }
-
-export const config = {
-  matcher: '/l/:path*',
-};
