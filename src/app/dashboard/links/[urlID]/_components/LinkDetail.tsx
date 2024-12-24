@@ -1,10 +1,10 @@
 'use client';
 
-import ActionButton from '@/src/components/ActionButton';
-import MyButton from '@/src/components/Button';
-import CopyButton from '@/src/components/CopyButton';
+import ActionButton from '@/src/components/links/ActionButton';
+import MyButton from '@/src/components/global/Button';
+import CopyButton from '@/src/components/links/CopyButton';
 import ShareModal from '@/src/components/modals/ShareModal';
-import ShareButton from '@/src/components/ShareButton';
+import ShareButton from '@/src/components/links/ShareButton';
 import { useModal } from '@/src/contexts/ModalContext';
 import { deleteURL } from '@/src/data/linkQueries';
 import { getFaviconUrl } from '@/src/utils/newLinkUtils';

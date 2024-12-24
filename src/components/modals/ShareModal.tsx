@@ -1,9 +1,9 @@
-import { Box, IconButton, Modal } from "@mui/material";
-import React from "react";
-import { FaFacebook, FaTimes, FaWhatsapp } from "react-icons/fa";
-import ShareGateway from "../ShareGateway";
-import { URL } from "@prisma/client";
-import { BiEnvelope, BiLogoTwitter } from "react-icons/bi";
+import { Box, IconButton, Modal } from '@mui/material';
+import React from 'react';
+import { FaFacebook, FaTimes, FaWhatsapp } from 'react-icons/fa';
+import ShareGateway from '../links/ShareGateway';
+import { URL } from '@prisma/client';
+import { BiEnvelope, BiLogoTwitter } from 'react-icons/bi';
 
 interface ShareModalProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ interface ShareModalProps {
 const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, link }) => {
   const encodedUrl = encodeURIComponent(link.short_url);
   const encodedTitle = encodeURIComponent(
-    "Check out this link shortened with Minime"
+    'Check out this link shortened with Minime',
   );
 
   const shareLinks = {

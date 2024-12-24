@@ -1,16 +1,16 @@
-import logo from "@/src/assets/logo.png";
-import AuthButons from "@/src/components/AuthButons";
-import { getServerSession } from "next-auth";
-import { getProviders } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import logo from '@/src/assets/logo.png';
+import AuthButons from '@/src/components/global/AuthButons';
+import { getServerSession } from 'next-auth';
+import { getProviders } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 const page = async () => {
   const session = await getServerSession();
 
   if (session) {
-    redirect("/dashboard");
+    redirect('/dashboard');
   }
 
   const providers = await getProviders();
@@ -25,9 +25,9 @@ const page = async () => {
           <div className="space-y-1">
             <p className="text-3xl font-bold">Login to continue</p>
             <p className="text-black/80">
-              Don&apos;t have an account?{" "}
+              Don&apos;t have an account?{' '}
               <Link
-                href={"/signup"}
+                href={'/signup'}
                 className="text-primary-300 hover:underline"
               >
                 Sign up

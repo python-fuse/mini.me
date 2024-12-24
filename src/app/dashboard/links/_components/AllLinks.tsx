@@ -1,7 +1,7 @@
 'use client';
 
 import LinkCardSkeleton from '@/src/components/global/LinkCardSkeleton';
-import LinkCard from '@/src/components/LinkCard';
+import LinkCard from '@/src/components/links/LinkCard';
 import { ModalProvider } from '@/src/contexts/ModalContext';
 import { fetchAllLinks } from '@/src/data/linkQueries';
 import useFetch from '@/src/hooks/useFetch';

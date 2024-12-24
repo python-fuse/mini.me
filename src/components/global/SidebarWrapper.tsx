@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { SidebarProvider } from "../contexts/SidebarContext";
-import Sidebar from "./Sidebar";
+import { SidebarProvider } from '../../contexts/SidebarContext';
+import Sidebar from './Sidebar';
 
 const SidebarWrapper = () => {
   return (

@@ -6,7 +6,7 @@ import { BiBarChart, BiCalendar } from 'react-icons/bi';
 import { format } from 'date-fns';
 import { useModal } from '@/src/contexts/ModalContext';
 import ShareModal from '@/src/components/modals/ShareModal';
-import { getFaviconUrl } from '../utils/newLinkUtils';
+import { getFaviconUrl } from '../../utils/newLinkUtils';
 import CopyButton from './CopyButton';
 import ShareButton from './ShareButton';
 

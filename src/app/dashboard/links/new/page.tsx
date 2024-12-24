@@ -2,7 +2,7 @@
 
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import MyButton from '../../../../components/Button';
+import MyButton from '../../../../components/global/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { getSession } from 'next-auth/react';

@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import MyButton from "@/src/components/Button";
-import { TextField } from "@mui/material";
-import { useFormik } from "formik";
-import { Session } from "next-auth";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { BiChevronLeft } from "react-icons/bi";
-import * as Yup from "yup";
-import { URL as TURL } from "@prisma/client";
-import useFetch from "@/src/hooks/useFetch";
-import { getSession } from "next-auth/react";
-import { updateUrl } from "@/src/app/actions";
+import MyButton from '@/src/components/global/Button';
+import { TextField } from '@mui/material';
+import { useFormik } from 'formik';
+import { Session } from 'next-auth';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { BiChevronLeft } from 'react-icons/bi';
+import * as Yup from 'yup';
+import { URL as TURL } from '@prisma/client';
+import useFetch from '@/src/hooks/useFetch';
+import { getSession } from 'next-auth/react';
+import { updateUrl } from '@/src/app/actions';
 
 const Page = () => {
   const router = useRouter();
@@ -23,17 +23,17 @@ const Page = () => {
 
   const formik = useFormik({
     initialValues: {
-      link: "",
-      title: "",
+      link: '',
+      title: '',
       domain:
-        process.env.NODE_ENV == "development"
-          ? "http://localhost:3000/"
-          : "https://mini-me-kappa.vercel.app/",
-      customPath: "",
+        process.env.NODE_ENV == 'development'
+          ? 'http://localhost:3000/'
+          : 'https://mini-me-kappa.vercel.app/',
+      customPath: '',
       qrCode: false,
     },
     validationSchema: Yup.object({
-      link: Yup.string().required("Required"),
+      link: Yup.string().required('Required'),
       title: Yup.string(),
       customPath: Yup.string(),
     }),
@@ -55,10 +55,10 @@ const Page = () => {
       const data: TURL = await res.json();
       setLinkData(data);
 
-      formik.setFieldValue("link", data.original_url);
-      formik.setFieldValue("title", data.title);
-      formik.setFieldValue("customPath", data.short_url.split("/")[3]);
-      formik.setFieldValue("qrCode", data.qrCode);
+      formik.setFieldValue('link', data.original_url);
+      formik.setFieldValue('title', data.title);
+      formik.setFieldValue('customPath', data.short_url.split('/')[3]);
+      formik.setFieldValue('qrCode', data.qrCode);
     };
     fetchLinkData();
   }, [urlID]);
@@ -73,7 +73,7 @@ const Page = () => {
     try {
       submitFetch.display_loading();
 
-      let qrCode = "";
+      let qrCode = '';
       let title = values.title;
 
       const res = await updateUrl(urlID as string, {
@@ -111,20 +111,20 @@ const Page = () => {
           variant="outlined"
           value={formik.values.link}
           placeholder="https://example.com/my-long-link"
-          onChange={formik.handleChange("link")}
+          onChange={formik.handleChange('link')}
         />
         <TextField
           label="Title (optional)"
           variant="outlined"
           value={formik.values.title}
-          onChange={formik.handleChange("title")}
+          onChange={formik.handleChange('title')}
         />
 
         <div className="flex gap-x-2  items-center justify-between">
           <TextField
             label="Domain"
             disabled
-            value={"mini.me"}
+            value={'mini.me'}
             variant="outlined"
           />
           <p className="text-2xl">/</p>
@@ -132,7 +132,7 @@ const Page = () => {
             label="Custom path (optional)"
             variant="outlined"
             value={formik.values.customPath}
-            onChange={formik.handleChange("customPath")}
+            onChange={formik.handleChange('customPath')}
           />
         </div>
 

@@ -1,5 +1,5 @@
 import { getUserTotalCLicks, getUserTotalLinks } from '@/src/actions/actions';
-import MyButton from '@/src/components/Button';
+import MyButton from '@/src/components/global/Button';
 import DashboardAnalyticCard from '@/src/components/dashboard/DashboardAnalyticCard';
 import RecentLinks from '@/src/components/dashboard/RecentLinks';
 import Welcome from '@/src/components/dashboard/Welcome';

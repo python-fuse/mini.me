@@ -1,6 +1,6 @@
-import MyButton from "@/src/components/Button";
-import Link from "next/link";
-import { BiPlus } from "react-icons/bi";
+import MyButton from '@/src/components/global/Button';
+import Link from 'next/link';
+import { BiPlus } from 'react-icons/bi';
 
 const LinksTitleRow = () => {
   return (

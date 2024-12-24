@@ -1,8 +1,8 @@
 'use client';
 
 import { searchUrl } from '@/src/app/actions';
-import LinkCard from '@/src/components/LinkCard';
-import Spinner from '@/src/components/Spinner';
+import LinkCard from '@/src/components/links/LinkCard';
+import Spinner from '@/src/components/global/Spinner';
 import useFetch from '@/src/hooks/useFetch';
 import { URL } from '@prisma/client';
 import { Session } from 'next-auth';

@@ -1,5 +1,5 @@
 import Header from '@/src/components/global/Header';
-import SidebarWrapper from '@/src/components/SidebarWrapper';
+import SidebarWrapper from '@/src/components/global/SidebarWrapper';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 

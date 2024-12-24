@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Spinner from "@/src/components/Spinner";
-import { fetchLink } from "@/src/data/linkQueries";
-import useFetch from "@/src/hooks/useFetch";
-import { URL as TURL } from "@prisma/client";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import LinkDetail from "./_components/LinkDetail";
-import { ModalProvider } from "@/src/contexts/ModalContext";
+import Spinner from '@/src/components/global/Spinner';
+import { fetchLink } from '@/src/data/linkQueries';
+import useFetch from '@/src/hooks/useFetch';
+import { URL as TURL } from '@prisma/client';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import LinkDetail from './_components/LinkDetail';
+import { ModalProvider } from '@/src/contexts/ModalContext';
 
 const Page = () => {
   const { urlID } = useParams();
@@ -39,7 +39,7 @@ const Page = () => {
       )}
       {linkData ? (
         <ModalProvider>
-          {" "}
+          {' '}
           <LinkDetail link={linkData} />
         </ModalProvider>
       ) : (

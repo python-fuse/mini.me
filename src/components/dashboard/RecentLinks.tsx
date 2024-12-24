@@ -1,6 +1,6 @@
 'use client';
 
-import LinkCard from '../LinkCard';
+import LinkCard from '../links/LinkCard';
 import { Skeleton } from '@mui/material';
 import { useEffect, useState } from 'react';
 import useFetchLinks from '@/src/hooks/useFetchLinks';
