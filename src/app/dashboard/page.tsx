@@ -1,11 +1,14 @@
 import MyButton from '@/src/components/Button';
 import DashboardAnalyticCard from '@/src/components/dashboard/DashboardAnalyticCard';
+import RecentLinks from '@/src/components/dashboard/RecentLinks';
 import Welcome from '@/src/components/dashboard/Welcome';
 import { Divider } from '@mui/material';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { BiLink, BiPointer, BiQr } from 'react-icons/bi';
 
-const page = () => {
+const page = async () => {
+  const session = await getServerSession();
   return (
     <div className="px-4 md:px-20 py-4 md:py-10 flex flex-col gap-y-4 overflow-y-scroll">
       <Welcome />
@@ -36,7 +39,7 @@ const page = () => {
         </Link>
       </div>
 
-      {/* <RecentLinks /> */}
+      <RecentLinks />
     </div>
   );
 };

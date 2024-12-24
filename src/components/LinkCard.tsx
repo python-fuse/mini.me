@@ -1,13 +1,14 @@
-import { URL } from "@prisma/client";
-import Link from "next/link";
-import { FC } from "react";
-import { BiBarChart, BiCalendar } from "react-icons/bi";
-import { format } from "date-fns";
-import { useModal } from "@/src/contexts/ModalContext";
-import ShareModal from "@/src/components/modals/ShareModal";
-import { getFaviconUrl } from "../utils/newLinkUtils";
-import CopyButton from "./CopyButton";
-import ShareButton from "./ShareButton";
+'use client';
+import { URL } from '@prisma/client';
+import Link from 'next/link';
+import { FC } from 'react';
+import { BiBarChart, BiCalendar } from 'react-icons/bi';
+import { format } from 'date-fns';
+import { useModal } from '@/src/contexts/ModalContext';
+import ShareModal from '@/src/components/modals/ShareModal';
+import { getFaviconUrl } from '../utils/newLinkUtils';
+import CopyButton from './CopyButton';
+import ShareButton from './ShareButton';
 
 interface LinkCardProps {
   link: URL;
@@ -23,7 +24,7 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
       <div className="w-3/4 flex space-x-4">
         <div className="h-10 grid place-content-center overflow-hidden shrink-0 w-10 rounded-full border border-accent-400">
           <img
-            src={getFaviconUrl(link.original_url) || ""}
+            src={getFaviconUrl(link.original_url) || ''}
             alt={link.title[0].toUpperCase()}
             className="bg-cover h-10 w-10 bg-center"
           />
@@ -40,7 +41,7 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
             target="_blank"
             rel=" noopener "
           >
-            {link.short_url.replace("http://", "")}
+            {link.short_url.replace('http://', '')}
           </Link>
 
           <Link
@@ -60,7 +61,7 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
 
             <div className="flex gap-x-1 text-sm" title="Date created">
               <BiCalendar className="" size={20} />
-              {format(new Date(link.createdAt), "MMM dd, yyyy")}
+              {format(new Date(link.createdAt), 'MMM dd, yyyy')}
             </div>
           </div>
         </div>
