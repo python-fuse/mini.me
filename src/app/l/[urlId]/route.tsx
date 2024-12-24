@@ -1,62 +1,6 @@
 import { prisma } from '@/prisma/prisma';
 import { ClickData } from '@/src/utils/definitions';
 import { NextRequest, NextResponse } from 'next/server';
-import UAParser from 'ua-parser-js';
-
-function getClientIP(request: NextRequest): string {
-  const ipp = process.env.NODE_ENV === 'development' && '8.8.8.8';
-
-  if (ipp) {
-    return ipp;
-  }
-
-  // Try x-forwarded-for header first
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  if (forwardedFor) {
-    return forwardedFor.split(',')[0].trim();
-  }
-
-  // Try Cloudflare-specific headers if using Cloudflare
-  const cfConnectingIP = request.headers.get('cf-connecting-ip');
-  if (cfConnectingIP) {
-    return cfConnectingIP;
-  }
-
-  // Try true-client-ip header
-  const trueClientIP = request.headers.get('true-client-ip');
-  if (trueClientIP) {
-    return trueClientIP;
-  }
-
-  // Try getting IP from NextRequest
-  const ip = request.ip;
-  if (ip) {
-    return ip;
-  }
-
-  // If all else fails
-  return 'Unknown';
-}
-const getGeoData = async (ip: string) => {
-  try {
-    if (process.env.NODE_ENV === 'development') {
-      ip = '105.112.214.165';
-    }
-
-    const res = await fetch(`http://ip-api.com/json/${ip}`);
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    const data = await res.json();
-    if (data.status === 'fail') {
-      throw new Error(data.message);
-    }
-    return { country: data.country, city: data.city };
-  } catch (e) {
-    console.error('Error fetching geo data:', e);
-    return { country: 'Unknown', city: 'Unknown' };
-  }
-};
 
 const recordClick = async (clickData: ClickData) => {
   const today = new Date();
@@ -154,12 +98,6 @@ const recordClick = async (clickData: ClickData) => {
 
 export async function GET(request: NextRequest) {
   const urlId = request.nextUrl.pathname.split('/')[2];
-  console.log(urlId);
-
-  // check if we are in /l/ route
-  if (request.nextUrl.pathname.split('/')[1] !== 'l') {
-    return;
-  }
 
   const urlData = await prisma.uRL.findUnique({
     where: {
@@ -171,44 +109,29 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/not-found', request.url));
   }
 
-  try {
-    // get Url data
-    const urlData = await prisma.uRL.findUnique({
-      where: {
-        id: urlId,
-      },
-    });
+  const browser = request.headers.get('x-browser') || 'Unknown';
+  const os = request.headers.get('x-os') || 'Unknown';
+  const device = request.headers.get('x-device') || 'Unknown';
+  const country = request.headers.get('x-country') || 'Unknown';
+  const city = request.headers.get('x-city') || 'Unknown';
+  const referrer = request.headers.get('x-referrer') || 'Unknown';
 
+  try {
     // redirect to not found
     if (!urlData) {
       return NextResponse.redirect(new URL('/not-found', request.url));
     }
 
-    // Parse User Agent
-    const userAgent = request.headers.get('user-agent') || '';
-    const parser = new UAParser(userAgent);
-    const browserData = parser.getBrowser();
-    const osData = parser.getOS();
-    const deviceData = parser.getDevice();
-    const referrer = request.headers.get('referer') || 'Direct';
-
-    // Get IP address
-    const ip = getClientIP(request);
-
-    if (ip !== 'Unknown') {
-      const { country, city } = await getGeoData(ip);
-
-      // Create analytics entry
-      await recordClick({
-        urlId,
-        browser: browserData.name || 'Unknown',
-        os: osData.name || 'Unknown',
-        device: deviceData.type || 'Unknown',
-        country,
-        city,
-        referrer,
-      });
-    }
+    // Create analytics entry
+    await recordClick({
+      urlId,
+      browser,
+      os,
+      device,
+      country,
+      city,
+      referrer,
+    });
 
     // redirect to the actual site
     return NextResponse.redirect(urlData.original_url);
