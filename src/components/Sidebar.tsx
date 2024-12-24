@@ -93,7 +93,9 @@ const Sidebar = () => {
         <div className="flex flex-col w-full gap-y-6 lg:gap-y-4 h-full">
           {PATHNAMES.map((pathname, index) => (
             <>
-              {pathname.title === 'Settings' && <div className="mt-auto"></div>}
+              {pathname.title === 'Settings' && (
+                <div key={index} className="mt-auto"></div>
+              )}
               <NavItem
                 key={index}
                 href={pathname.href}

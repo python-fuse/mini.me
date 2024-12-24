@@ -152,11 +152,9 @@ const recordClick = async (clickData: ClickData) => {
   console.log('Upsert result:', res);
 };
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { urlId: string } },
-) {
-  const { urlId } = params;
+export async function GET(request: NextRequest) {
+  const urlId = request.nextUrl.pathname.split('/')[2];
+  console.log(urlId);
 
   const urlData = await prisma.uRL.findUnique({
     where: {

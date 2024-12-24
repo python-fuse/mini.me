@@ -1,6 +1,6 @@
 'use client';
 
-import { Switch, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import MyButton from '../../../../components/Button';
 import { useFormik } from 'formik';
@@ -9,7 +9,7 @@ import { getSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import useFetch from '@/src/hooks/useFetch';
 import { URL } from '@prisma/client';
-import { generateQrCode, getMetadata } from '@/src/utils/newLinkUtils';
+import { getMetadata } from '@/src/utils/newLinkUtils';
 import { createLink } from '@/src/data/linkQueries';
 import { useRouter } from 'next/navigation';
 import { BiChevronLeft, BiQr } from 'react-icons/bi';
@@ -44,7 +44,7 @@ const Page = () => {
       customPath: '',
     },
     validationSchema: Yup.object({
-      link: Yup.string().required('Required'),
+      link: Yup.string().url('Invalid URL').required('Required'),
       title: Yup.string(),
       customPath: Yup.string(),
     }),
@@ -88,16 +88,14 @@ const Page = () => {
 
     const randomPath = Math.random().toString(36).substring(2, 8);
 
-    if (!values.customPath) {
-      formik.setFieldValue('customPath', randomPath);
-    }
+    const urlId = formik.values.customPath || randomPath;
 
     const data: Omit<URL, 'createdAt' | 'updatedAt' | 'clicks'> = {
-      id: randomPath,
+      id: urlId,
       userId: session?.user.id ?? '',
       original_url: values.link,
       title: title,
-      short_url: `${values.domain}/l/${formik.values.customPath}`,
+      short_url: `${values.domain}/l/${urlId}`,
       qrCode: liveQr,
     };
 
@@ -157,6 +155,8 @@ const Page = () => {
             value={formik.values.link}
             placeholder="https://example.com/my-long-link"
             onChange={formik.handleChange('link')}
+            error={formik.touched.link && Boolean(formik.errors.link)}
+            helperText={formik.touched.link && formik.errors.link}
           />
           <TextField
             label="Title (optional)"
