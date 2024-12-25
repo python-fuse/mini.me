@@ -1,6 +1,11 @@
+const DOMAIN =
+  process.env.NODE_ENV === 'production'
+    ? process.env.PRODUCTION_DOMAIN
+    : 'http://localhost:3000';
+
 export const fetchUrlTitle = async (url: string) => {
   const response = await fetch(
-    `/api/fetchMetadata?url=${encodeURIComponent(url)}`,
+    `${DOMAIN}/api/fetchMetadata?url=${encodeURIComponent(url)}`,
   );
   const metadata = await response.json();
 
@@ -14,7 +19,7 @@ export const fetchUrlTitle = async (url: string) => {
 
 export const fetchQrCode = async (url: string) => {
   const response = await fetch(
-    `/api/generateQR?url=${encodeURIComponent(url)}`,
+    `${DOMAIN}/api/generateQR?url=${encodeURIComponent(url)}`,
   );
   const qrCode = await response.json();
   console.log(qrCode);

@@ -98,8 +98,7 @@ const Locations = ({ id }: { id: string }) => {
 
           // ))
           <>
-            <MyPieChart data={countryData} />
-            {/* <MyPieChart data={cityData} /> */}
+            <MyPieChart data={countryData} cityData={cityData} />
             <MyPieChart data={osData} />
             <MyPieChart data={browserData} />
             <MyPieChart data={deviceData} />
@@ -114,8 +113,16 @@ export default Locations;
 
 const MyPieChart = ({
   data,
+  cityData,
 }: {
   data:
+    | {
+        name: string;
+        value: number;
+        fill: string;
+      }[]
+    | undefined;
+  cityData?:
     | {
         name: string;
         value: number;
@@ -135,11 +142,24 @@ const MyPieChart = ({
           data={data}
           cx="50%"
           cy="50%"
-          outerRadius={100}
+          outerRadius={60}
           label
         />
-        <Tooltip />
         <Legend layout="horizontal" align="center" verticalAlign="bottom" />
+
+        {cityData && (
+          <Pie
+            dataKey="value"
+            data={cityData}
+            cx="50%"
+            cy="50%"
+            innerRadius={70}
+            outerRadius={90}
+            label
+          />
+        )}
+        <Tooltip />
+        {/* <Legend layout="horizontal" align="center" verticalAlign="bottom" /> */}
       </PieChart>
     </ResponsiveContainer>
   );

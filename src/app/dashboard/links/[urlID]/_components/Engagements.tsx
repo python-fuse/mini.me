@@ -3,7 +3,6 @@ import { DailyStat } from '@prisma/client';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import {
-  CartesianGrid,
   Line,
   LineChart,
   ResponsiveContainer,

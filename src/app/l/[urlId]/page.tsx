@@ -3,16 +3,18 @@ import { redirect } from 'next/navigation';
 const page = async ({ params }: { params: { urlId: string } }) => {
   const { urlId } = params;
 
-  const response = await fetch(
-    `http://localhost:3000/api/links/redirect?urlId=${urlId}`,
-    {
-      method: 'GET',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  const DOMAIN =
+    process.env.NODE_ENV === 'production'
+      ? process.env.PRODUCTION_DOMAIN
+      : 'http://localhost:3000';
+
+  const response = await fetch(`${DOMAIN}/api/links/redirect?urlId=${urlId}`, {
+    method: 'GET',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+  });
 
   if (response.status === 200) {
     const data = await response.json();
