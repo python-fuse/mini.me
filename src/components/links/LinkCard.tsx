@@ -30,13 +30,13 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
           />
         </div>
         <div className="flex flex-1 flex-col overflow-hidden gap-y-1 ">
-          <Link href={`/dashboard/links/${link.id}  `}>
-            <h2 className="text-xl font-semibold truncate hover:text-tertiary-400 duration-300 ">
+          <Link href={`/dashboard/links/${link.id}  `} className="w-fit">
+            <h2 className="text-xl font-semibold truncate hover:text-tertiary-400 duration-300  ">
               {link.title}
             </h2>
           </Link>
           <Link
-            className="text-xs hover:underline text-accent-300 font-semibold  truncate"
+            className="text-xs hover:underline text-accent-300 font-semibold w-fit truncate"
             href={link.short_url}
             target="_blank"
             rel=" noopener "
@@ -45,7 +45,7 @@ const LinkCard: FC<LinkCardProps> = ({ link }) => {
           </Link>
 
           <Link
-            className="text-sm  truncate hover:underline"
+            className="text-sm  truncate hover:underline w-fit"
             href={link.original_url}
             target="_blank"
             rel=" noopener "
