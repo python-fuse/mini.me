@@ -99,6 +99,10 @@ const recordClick = async (clickData: ClickData) => {
 export async function GET(request: NextRequest) {
   const urlId = request.nextUrl.pathname.split('/')[2];
 
+  if (!urlId) {
+    return NextResponse.redirect(new URL('/not-found', request.url));
+  }
+
   const urlData = await prisma.uRL.findUnique({
     where: {
       id: urlId,
