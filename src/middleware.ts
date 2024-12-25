@@ -62,9 +62,11 @@ export async function middleware(request: NextRequest) {
   const referrer = request.headers.get('referer') || 'Direct';
 
   const parser = new UAParser(userAgent);
+  const res = parser.getResult();
+
   const browser = parser.getBrowser().name || 'Unknown';
   const os = parser.getOS().name || 'Unknown';
-  const device = parser.getDevice().type || 'Unknown';
+  const device = res.device.type || 'Desktop';
 
   const geoData =
     ip !== 'Unknown'
