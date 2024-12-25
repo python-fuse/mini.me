@@ -61,29 +61,31 @@ export async function middleware(request: NextRequest) {
   const userAgent = request.headers.get('user-agent') || '';
   const referrer = request.headers.get('referer') || 'Direct';
 
-  const parser = new UAParser(userAgent);
+  console.log('IP:', ip);
+  console.log('UserAgent:', userAgent);
 
+  const parser = new UAParser(userAgent);
   const browser = parser.getBrowser().name || 'Unknown';
   const os = parser.getOS().name || 'Unknown';
-  const device = parser.getBrowser().name || 'Desktop';
+  const device = parser.getDevice().type || 'desktop';
 
-  const geoData =
-    ip !== 'Unknown'
-      ? await getGeoData(ip)
-      : { country: 'Unknown', city: 'Unknown' };
+  const geoData = await getGeoData(ip);
 
-  const response = NextResponse.next();
-  response.headers.set('x-ip', ip);
-  response.headers.set('x-browser', browser);
-  response.headers.set('x-os', os);
-  response.headers.set('x-device', device);
-  response.headers.set('x-country', geoData.country);
-  response.headers.set('x-city', geoData.city);
-  response.headers.set('x-referrer', referrer);
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-browser', browser);
+  requestHeaders.set('x-os', os);
+  requestHeaders.set('x-device', device);
+  requestHeaders.set('x-country', geoData.country);
+  requestHeaders.set('x-city', geoData.city);
+  requestHeaders.set('x-referrer', referrer);
 
-  return response;
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {
-  matcher: '/dashboard/:path*',
+  matcher: ['/api/links/redirect/:path*'],
 };
