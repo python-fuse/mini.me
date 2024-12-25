@@ -13,6 +13,9 @@ export const generateLiveQR = async (url: string) => {
 };
 
 export const getUserTotalCLicks = async (userId: any) => {
+  if (userId === undefined) {
+    return 0;
+  }
   const data = await prisma.uRL.aggregate({
     _sum: {
       clicks: true,
@@ -26,6 +29,9 @@ export const getUserTotalCLicks = async (userId: any) => {
 };
 
 export const getUserTotalLinks = async (userId: any) => {
+  if (userId === undefined) {
+    return 0;
+  }
   const data = await prisma.uRL.count({
     where: {
       userId,
@@ -125,6 +131,4 @@ export const recordClick = async (clickData: ClickData) => {
       },
     });
   });
-
-  console.log('Upsert result:', res);
 };
