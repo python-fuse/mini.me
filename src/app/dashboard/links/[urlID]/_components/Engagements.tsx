@@ -1,8 +1,8 @@
-import { getUrlStats } from "@/src/app/actions";
-import { DailyStat } from "@prisma/client";
-import { format } from "date-fns";
-import { useEffect, useState } from "react";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { getUrlStats } from '@/src/app/actions';
+import { DailyStat } from '@prisma/client';
+import { format } from 'date-fns';
+import { useEffect, useState } from 'react';
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 const Engagements = ({ id }: { id: string }) => {
   const [dailyStats, setDailyStats] = useState<DailyStat[] | null>(null);
@@ -13,7 +13,7 @@ const Engagements = ({ id }: { id: string }) => {
 
       const transformedData = data.dailyStats.map((item: DailyStat) => {
         return {
-          date: format(item.date, "dd MMM"),
+          date: format(item.date, 'dd MMM'),
           clicks: item.clicks,
         };
       });
@@ -29,12 +29,12 @@ const Engagements = ({ id }: { id: string }) => {
       <h2 className="text-lg font-bold text-black/80">Engagements</h2>
 
       {dailyStats && (
-        <ResponsiveContainer width={"100%"} height="100%">
-          <BarChart data={dailyStats} width={150} height={10}>
-            <Bar dataKey="clicks" fill="#024efc" barSize={30} />
+        <ResponsiveContainer width={'100%'} height="100%">
+          <LineChart data={dailyStats} width={150} height={10}>
+            <Line dataKey="clicks" type="bump" fill="#024efc" />
             <XAxis dataKey="date" />
             <YAxis />
-          </BarChart>
+          </LineChart>
         </ResponsiveContainer>
       )}
     </div>

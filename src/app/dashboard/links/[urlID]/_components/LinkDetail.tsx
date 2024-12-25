@@ -38,12 +38,61 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ link }) => {
         <BiChevronLeft size={18} />
         Back
       </div>
-
       {/* Link detail card */}
       <div className="flex flex-col rounded-md p-6 gap-y-2 bg-white">
-        {/* Title + actions */}
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-black/80">{link.title}</h2>
+        {/* FAvicon + links */}
+        <div className="flex gap-x-4">
+          {/* favicon */}
+          <div className="size-20 grid place-content-center overflow-hidden shrink-0  rounded-full border border-accent-400">
+            <img
+              src={getFaviconUrl(link.original_url) || ''}
+              alt={link.title[0].toUpperCase()}
+              className="bg-contain h-full w-full bg-center"
+            />
+          </div>
+
+          {/* links */}
+          <div className="flex flex-col space-y-2">
+            <h2 className="text-4xl font-bold text-black/80">{link.title}</h2>
+            <Link
+              className="text-sm hover:underline text-accent-300 font-semibold  truncate"
+              href={link.short_url}
+              target="_blank"
+              rel=" noopener "
+            >
+              {link.short_url.replace('http://', '')}
+            </Link>
+
+            <Link
+              className="text-sm  truncate hover:underline"
+              href={link.original_url}
+              target="_blank"
+              rel=" noopener "
+            >
+              {link.original_url}
+            </Link>
+          </div>
+
+          <div className="rounded-lg overflow-hidden border-primary border w-max ml-auto">
+            <Image height={100} width={100} src={link.qrCode!} alt={'QR'} />
+          </div>
+        </div>
+
+        <Divider />
+
+        {/* Clicks + Date-complete*/}
+        <div className="flex justify-between">
+          <div className="flex gap-x-6 mt-3 items-center">
+            <div className="flex gap-x-1 text-sm" title="Clicks">
+              <BiBarChart className="" size={20} />
+              {link.clicks}
+            </div>
+
+            <div className="flex gap-x-1 text-sm" title="Date created">
+              <BiCalendar className="" size={20} />
+              {format(new Date(link.createdAt), 'iii MMMM dd, yyyy HH:mm a')}
+            </div>
+          </div>
 
           <div className="w-1/4 h-10 flex justify-end space-x-2">
             <CopyButton data={link.short_url} />
@@ -70,70 +119,19 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ link }) => {
             </ActionButton>
           </div>
         </div>
-
-        {/* FAvicon + links */}
-        <div className="flex gap-x-4">
-          {/* favicon */}
-          <div className="h-14 grid place-content-center overflow-hidden shrink-0 w-14 rounded-full border border-accent-400">
-            <img
-              src={getFaviconUrl(link.original_url) || ''}
-              alt={link.title[0].toUpperCase()}
-              className="bg-cover h-full w-full bg-center"
-            />
-          </div>
-
-          {/* links */}
-          <div className="flex flex-col space-y-2">
-            <Link
-              className="text-sm hover:underline text-accent-300 font-semibold  truncate"
-              href={link.short_url}
-              target="_blank"
-              rel=" noopener "
-            >
-              {link.short_url.replace('http://', '')}
-            </Link>
-
-            <Link
-              className="text-sm  truncate hover:underline"
-              href={link.original_url}
-              target="_blank"
-              rel=" noopener "
-            >
-              {link.original_url}
-            </Link>
-          </div>
-        </div>
-
-        <Divider />
-
-        {/* Clicks + Date-complete*/}
-        <div className="flex gap-x-6 mt-3 items-center">
-          <div className="flex gap-x-1 text-sm" title="Clicks">
-            <BiBarChart className="" size={20} />
-            {link.clicks}
-          </div>
-
-          <div className="flex gap-x-1 text-sm" title="Date created">
-            <BiCalendar className="" size={20} />
-            {format(new Date(link.createdAt), 'iii MMMM dd, yyyy HH:mm a')}
-          </div>
-        </div>
       </div>
-
-      {/* Link QR card */}
+      {/* Link QR card
       <div className="flex flex-col rounded-md p-6 gap-y-2 bg-white">
         <h2 className="text-lg font-bold text-black/80">QR Code</h2>
 
         <div className="rounded-lg overflow-hidden border-primary border w-max">
           <Image height={200} width={200} src={link.qrCode!} alt={'QR'} />
         </div>
-      </div>
-
+      </div> */}
       {/* Clicks vs date */}
       <div className="flex flex-col rounded-md p-6 gap-y-2 bg-white">
         <Engagements id={link.id} />
       </div>
-
       <div className="flex flex-col rounded-md p-6 gap-y-2 bg-white">
         <Locations id={link.id} />
       </div>
