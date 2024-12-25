@@ -3,7 +3,7 @@ import { ClickData } from '@/src/utils/definitions';
 import { NextRequest, NextResponse } from 'next/server';
 import { recordClick } from '@/src/actions/actions';
 
-export async function handler(request: NextRequest) {
+async function handler(request: NextRequest) {
   if (request.method !== 'GET') {
     return Response.json({ error: 'Method not allowed' }, { status: 405 });
   }
