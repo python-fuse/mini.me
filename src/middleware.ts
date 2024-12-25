@@ -85,6 +85,6 @@ export async function middleware(request: NextRequest) {
   return response;
 }
 
-export const config = {
-  matcher: '/l/:path*',
-};
+// export const config = {
+//   matcher: '/l/:path*',
+// };
