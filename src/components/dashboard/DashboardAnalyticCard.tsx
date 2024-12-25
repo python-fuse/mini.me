@@ -10,7 +10,7 @@ const DashboardAnalyticCard: React.FC<DashboardAnalyticCardProps> = ({
   icon,
 }) => {
   return (
-    <div className="flex flex-1 bg-white border border-tertiary-500 p-4 items-center gap-x-2">
+    <div className="flex flex-1 bg-white hover:shadow-md duration-300  border border-tertiary-500 p-4 items-center gap-x-2">
       <div className="size-14 rounded-full bg-blue-100 p-2 grid place-content-center">
         {icon}
       </div>
