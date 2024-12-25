@@ -62,11 +62,10 @@ export async function middleware(request: NextRequest) {
   const referrer = request.headers.get('referer') || 'Direct';
 
   const parser = new UAParser(userAgent);
-  const res = parser.getResult();
 
   const browser = parser.getBrowser().name || 'Unknown';
   const os = parser.getOS().name || 'Unknown';
-  const device = res.device.type || 'Desktop';
+  const device = parser.getBrowser().name || 'Desktop';
 
   const geoData =
     ip !== 'Unknown'
@@ -85,6 +84,6 @@ export async function middleware(request: NextRequest) {
   return response;
 }
 
-// export const config = {
-//   matcher: '/l/:path*',
-// };
+export const config = {
+  matcher: '/dashboard/:path*',
+};
