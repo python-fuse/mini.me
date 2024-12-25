@@ -79,6 +79,7 @@ export async function middleware(request: NextRequest) {
   response.headers.set('x-country', geoData.country);
   response.headers.set('x-city', geoData.city);
   response.headers.set('x-referrer', referrer);
+
   return response;
 }
 

@@ -2,7 +2,15 @@ import { getUrlStats } from '@/src/app/actions';
 import { DailyStat } from '@prisma/client';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 const Engagements = ({ id }: { id: string }) => {
   const [dailyStats, setDailyStats] = useState<DailyStat[] | null>(null);
@@ -34,6 +42,7 @@ const Engagements = ({ id }: { id: string }) => {
             <Line dataKey="clicks" type="bump" fill="#024efc" />
             <XAxis dataKey="date" />
             <YAxis />
+            <Tooltip />
           </LineChart>
         </ResponsiveContainer>
       )}

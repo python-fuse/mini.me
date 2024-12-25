@@ -92,12 +92,16 @@ const recordClick = async (clickData: ClickData) => {
       },
     });
   });
-
-  console.log('Upsert result:', res);
 };
 
-export async function GET(request: NextRequest) {
-  const urlId = request.nextUrl.pathname.split('/')[2];
+export async function handler(request: NextRequest) {
+  if (request.method !== 'GET') {
+    return Response.json({ error: 'Method not allowed' }, { status: 405 });
+  }
+
+  const searchParams = request.nextUrl.searchParams;
+
+  const urlId = searchParams.get('urlId');
 
   if (!urlId) {
     return NextResponse.redirect(new URL('/not-found', request.url));
@@ -123,7 +127,7 @@ export async function GET(request: NextRequest) {
   try {
     // redirect to not found
     if (!urlData) {
-      return NextResponse.redirect(new URL('/not-found', request.url));
+      return NextResponse.json({ error: 'URL not found' }, { status: 404 });
     }
 
     // Create analytics entry
@@ -138,9 +142,11 @@ export async function GET(request: NextRequest) {
     });
 
     // redirect to the actual site
-    return NextResponse.redirect(urlData.original_url);
+    return NextResponse.json({ url: urlData.original_url });
   } catch (e) {
     console.error(e);
-    return NextResponse.redirect(new URL('/error', request.url));
+    return Response.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export { handler as GET };
