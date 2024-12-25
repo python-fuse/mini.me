@@ -1,7 +1,6 @@
 'use client';
 
 import ActionButton from '@/src/components/links/ActionButton';
-import MyButton from '@/src/components/global/Button';
 import CopyButton from '@/src/components/links/CopyButton';
 import ShareModal from '@/src/components/modals/ShareModal';
 import ShareButton from '@/src/components/links/ShareButton';
@@ -53,7 +52,9 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ link }) => {
 
           {/* links */}
           <div className="flex flex-col space-y-2">
-            <h2 className="text-4xl font-bold text-black/80">{link.title}</h2>
+            <h2 className="text-4xl font-bold text-wrap text-black/80">
+              {link.title}
+            </h2>
             <Link
               className="text-sm hover:underline text-accent-300 font-semibold  truncate"
               href={link.short_url}
@@ -73,7 +74,7 @@ const LinkDetail: React.FC<LinkDetailProps> = ({ link }) => {
             </Link>
           </div>
 
-          <div className="rounded-lg overflow-hidden border-primary border w-max ml-auto">
+          <div className="rounded-lg overflow-hidden border-primary border min-w-[100px] h-max ml-auto">
             <Image height={100} width={100} src={link.qrCode!} alt={'QR'} />
           </div>
         </div>

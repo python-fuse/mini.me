@@ -50,6 +50,11 @@ async function handler(request: NextRequest) {
       referrer,
     });
 
+    console.log(
+      'Route handler headers:',
+      Object.fromEntries(request.headers.entries()),
+    );
+
     // redirect to the actual site
     return NextResponse.json({ url: urlData.original_url });
   } catch (e) {

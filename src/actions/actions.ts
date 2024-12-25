@@ -132,3 +132,14 @@ export const recordClick = async (clickData: ClickData) => {
     });
   });
 };
+
+// Get page title
+export const getPageTitle = async (url: string) => {
+  const res = await fetch(url, {
+    method: 'GET',
+    redirect: 'follow',
+  });
+  const html = await res.text();
+  const title = html.match(/<title>(.*?)<\/title>/i)?.[1];
+  return title;
+};

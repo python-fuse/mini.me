@@ -9,12 +9,11 @@ import { getSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import useFetch from '@/src/hooks/useFetch';
 import { URL } from '@prisma/client';
-import { getMetadata } from '@/src/utils/newLinkUtils';
 import { createLink } from '@/src/data/linkQueries';
 import { useRouter } from 'next/navigation';
 import { BiChevronLeft, BiQr } from 'react-icons/bi';
 import Image from 'next/image';
-import { generateLiveQR } from '@/src/actions/actions';
+import { generateLiveQR, getPageTitle } from '@/src/actions/actions';
 
 const Page = () => {
   const router = useRouter();
@@ -81,7 +80,7 @@ const Page = () => {
     let title = values.title;
 
     if (!values.title) {
-      let fetchedTitle = await getMetadata(values.link, metadaFetch);
+      let fetchedTitle = await getPageTitle(values.link);
       formik.setFieldValue('title', fetchedTitle);
       title = fetchedTitle || `${values.link.split('/')[2]} - untitled`;
     }

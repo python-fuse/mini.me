@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 
+// /l/[urlId]/page.tsx
 const page = async ({ params }: { params: { urlId: string } }) => {
   const { urlId } = params;
 
@@ -8,14 +10,15 @@ const page = async ({ params }: { params: { urlId: string } }) => {
       ? process.env.PRODUCTION_DOMAIN
       : 'http://localhost:3000';
 
+  const incomingHeaders = headers();
+
   const response = await fetch(`${DOMAIN}/api/links/redirect?urlId=${urlId}`, {
     method: 'GET',
     cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: incomingHeaders,
   });
 
+  // Rest of the code remains the same
   if (response.status === 200) {
     const data = await response.json();
     console.log('Redirecting to:', data.url);
@@ -25,26 +28,10 @@ const page = async ({ params }: { params: { urlId: string } }) => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <h1
-        className="
-            text-4xl
-            font-bold
-            text-red-500
-            border-r-2 border-primary-500
-            pr-4
-        "
-      >
+      <h1 className=" text-4xl font-bold text-red-500 border-r-2 border-primary-500 pr-4 ">
         404
       </h1>
-      <p
-        className="
-          text-4xl
-          font-bold
-          text-black
-          pl-4"
-      >
-        Link not found
-      </p>
+      <p className=" text-4xl font-bold text-black pl-4">Link not found</p>
     </div>
   );
 };

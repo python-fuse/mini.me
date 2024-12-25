@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import UAParser from 'ua-parser-js';
+import { UAParser } from 'ua-parser-js';
 
 function getClientIP(request: NextRequest): string {
   const ipp = process.env.NODE_ENV === 'development' && '8.8.8.8';
@@ -71,21 +71,20 @@ export async function middleware(request: NextRequest) {
 
   const geoData = await getGeoData(ip);
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-browser', browser);
-  requestHeaders.set('x-os', os);
-  requestHeaders.set('x-device', device);
-  requestHeaders.set('x-country', geoData.country);
-  requestHeaders.set('x-city', geoData.city);
-  requestHeaders.set('x-referrer', referrer);
+  // Create a new response from the original
+  const response = NextResponse.next();
 
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  // Set the headers on the response instead of request
+  response.headers.set('x-browser', browser);
+  response.headers.set('x-os', os);
+  response.headers.set('x-device', device);
+  response.headers.set('x-country', geoData.country);
+  response.headers.set('x-city', geoData.city);
+  response.headers.set('x-referrer', referrer);
+
+  return response;
 }
 
 export const config = {
-  matcher: ['/api/links/redirect/:path*'],
+  matcher: ['/l/:path*'],
 };
