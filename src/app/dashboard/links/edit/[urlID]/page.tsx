@@ -57,7 +57,7 @@ const Page = () => {
 
       formik.setFieldValue('link', data.original_url);
       formik.setFieldValue('title', data.title);
-      formik.setFieldValue('customPath', data.short_url.split('/')[3]);
+      formik.setFieldValue('customPath', data.short_url.split('/')[2]);
       formik.setFieldValue('qrCode', data.qrCode);
     };
     fetchLinkData();
@@ -79,7 +79,7 @@ const Page = () => {
       const res = await updateUrl(urlID as string, {
         title: values.title,
         original_url: values.link,
-        short_url: `${values.domain}${values.customPath}`,
+        short_url: `${values.domain}/l/${values.customPath}`,
       });
 
       console.log(res);
