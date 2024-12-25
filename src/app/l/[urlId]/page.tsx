@@ -12,10 +12,19 @@ const page = async ({ params }: { params: { urlId: string } }) => {
 
   const incomingHeaders = headers();
 
+  const requiredHeaders = {
+    'x-browser': incomingHeaders.get('x-browser') ?? '',
+    'x-os': incomingHeaders.get('x-os') ?? '',
+    'x-device': incomingHeaders.get('x-device') ?? '',
+    'x-country': incomingHeaders.get('x-country') ?? '',
+    'x-city': incomingHeaders.get('x-city') ?? '',
+    'x-referrer': incomingHeaders.get('x-referrer') ?? '',
+  };
+
   const response = await fetch(`${DOMAIN}/api/links/redirect?urlId=${urlId}`, {
     method: 'GET',
     cache: 'no-cache',
-    headers: incomingHeaders,
+    headers: requiredHeaders,
   });
 
   // Rest of the code remains the same
