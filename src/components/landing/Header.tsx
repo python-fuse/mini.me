@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const LandingHeader = ({ signedIn = true }: { signedIn: boolean }) => {
   return (
-    <nav className="land-header flex fixed shadow-md px-40 w-screen top-0 h-20  justify-between text-white  items-center p-4">
+    <nav className="land-header flex fixed shadow-md px-40 z-50 w-screen top-0 h-20  justify-between text-white  items-center p-4">
       <Image src={logo} alt="Mini.me" height={80} />
 
       <div className="flex space-x-3">

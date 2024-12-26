@@ -2,6 +2,7 @@ import { BiLink, BiRightArrow, BiSolidRightArrow } from 'react-icons/bi';
 import { FaArrowRight } from 'react-icons/fa';
 import CTAButton from './CTAButton';
 import FeatureCard from './FeatureCard';
+import { features } from '@/src/utils/constants';
 
 const Why = () => {
   return (
@@ -23,6 +24,23 @@ const Why = () => {
           Get started for free
           <FaArrowRight />
         </CTAButton>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-8 mt-4 ">
+        {features.map((feature, index) => (
+          <div
+            key={feature.title}
+            className="p-6 rounded-2xl bg-primary-600 hover:shadow-lg ring-offset-2 hover:ring-2 duration-300 group hover:bg-primary-300 flex flex-col place-items-center hover:rotate-6 "
+          >
+            <feature.icon className="h-12 w-12 text-blue-500 mb-4 group-hover:text-white" />
+            <h3 className="text-xl font-semibold mb-2 group-hover:text-white">
+              {feature.title}
+            </h3>
+            <p className="text-gray-600 group-hover:text-gray-300">
+              {feature.description}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );

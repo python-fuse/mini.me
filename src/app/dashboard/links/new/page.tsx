@@ -50,6 +50,14 @@ const Page = () => {
     onSubmit: (values) => handleSubmit(values),
   });
 
+  // // get the url from searchParams for url field prefill
+  // useEffect(() => {
+  //   const url = new URLSearchParams(window.location.search).get('url');
+  //   if (url) {
+  //     formik.setFieldValue('link', url);
+  //   }
+  // }, []);
+
   useEffect(() => {
     const handleLiveQr = async (url: string) => {
       if (!url) {
@@ -131,7 +139,7 @@ const Page = () => {
   };
 
   return (
-    <section className="mx-auto py-5 flex flex-col gap-y-4 max-w-[80%]">
+    <div className="mx-auto py-5 flex flex-col gap-y-4 max-w-[80%]">
       <div
         className="flex space-x-2 items-center hover:underline cursor-pointer"
         onClick={() => router.push('/dashboard/links')}
@@ -207,7 +215,7 @@ const Page = () => {
           )}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 export default Page;

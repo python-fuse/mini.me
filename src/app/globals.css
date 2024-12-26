@@ -52,7 +52,7 @@ section {
   width: 100%;
   transition: transform 0.3s;
   transform: scaleX(0);
-  transform-origin: right;
+  /* transform-origin: right; */
 }
 
 .anim-btn:hover::before,
