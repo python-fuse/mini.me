@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Avatar,
@@ -7,12 +7,12 @@ import {
   ListItemIcon,
   Menu,
   MenuItem,
-} from "@mui/material";
-import { Session } from "next-auth";
-import { getSession, signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { BiChevronDown } from "react-icons/bi";
-import { FiLogOut, FiSettings } from "react-icons/fi";
+} from '@mui/material';
+import { Session } from 'next-auth';
+import { getSession, signOut } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { BiChevronDown } from 'react-icons/bi';
+import { FiLogOut, FiSettings } from 'react-icons/fi';
 
 const AccountAvatar = () => {
   const [session, setSession] = useState<Session | null>();
@@ -43,8 +43,8 @@ const AccountAvatar = () => {
         className="rounded-md p-2 flex items-center gap-x-2 cursor-pointer "
       >
         <Avatar
-          src={session?.user?.image ?? ""}
-          alt={session?.user?.name ?? ""}
+          src={session?.user?.image ?? ''}
+          alt={session?.user?.name ?? ''}
         />
         <div className="hidden md:flex flex-col ">
           <p className="font-semibold text-sm">{session?.user?.name}</p>
@@ -56,14 +56,14 @@ const AccountAvatar = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose} className="gap-x-2">
           <Avatar
-            src={session?.user?.image ?? ""}
-            alt={session?.user?.name ?? ""}
-          />{" "}
+            src={session?.user?.image ?? ''}
+            alt={session?.user?.name ?? ''}
+          />{' '}
           <div className="">
             <p className="font-semibold text-sm">{session?.user?.name}</p>
             <p className="text-gray-400 text-xs ">{session?.user?.email}</p>
@@ -71,15 +71,15 @@ const AccountAvatar = () => {
         </MenuItem>
 
         <Divider />
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <FiSettings />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           onClick={() => {
-            signOut({ callbackUrl: "/login" });
+            signOut({ callbackUrl: '/' });
           }}
         >
           <ListItemIcon>

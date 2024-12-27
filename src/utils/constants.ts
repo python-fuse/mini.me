@@ -1,8 +1,8 @@
 import { FiSettings } from 'react-icons/fi';
 import { Pathname } from './definitions';
-import { BiHome, BiLink, BiQr } from 'react-icons/bi';
-import { URL } from '@prisma/client';
-import { BarChart3, QrCode, Zap } from 'lucide-react';
+import { BiHome, BiLink } from 'react-icons/bi';
+import { BarChart3, QrCode, Tag, Zap } from 'lucide-react';
+import { FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 export const PATHNAMES: Pathname[] = [
   {
@@ -45,5 +45,41 @@ export const features = [
     title: 'Detailed Analytics',
     description:
       'Track clicks, geographic location, and devices. Make data-driven decisions.',
+  },
+  {
+    icon: Tag,
+    title: 'Custom Alias',
+    description:
+      'Create custom aliases for your URLs. Make them memorable and easy to share.',
+  },
+];
+
+interface Contact {
+  name: string;
+  href: string;
+  icon: any;
+}
+
+export const contacts: Contact[] = [
+  {
+    name: 'GitHub',
+    href: 'https://github.com/python-fuse',
+    icon: FaGithub,
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/umar-muktar-552a06268',
+    icon: FaLinkedin,
+  },
+
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com/mini_me',
+    icon: FaTwitter,
+  },
+  {
+    name: 'YouTube',
+    href: 'https://www.youtube.com/mini_me',
+    icon: FaYoutube,
   },
 ];

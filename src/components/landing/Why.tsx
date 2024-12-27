@@ -1,7 +1,5 @@
-import { BiLink, BiRightArrow, BiSolidRightArrow } from 'react-icons/bi';
 import { FaArrowRight } from 'react-icons/fa';
 import CTAButton from './CTAButton';
-import FeatureCard from './FeatureCard';
 import { features } from '@/src/utils/constants';
 
 const Why = () => {
@@ -13,20 +11,13 @@ const Why = () => {
       <h2 className="font-semibold text-5xl text-primary-300">
         The Mini.me connections solution
       </h2>
-      <p className="text-2xl w-3/4 text-center">
+      <p className="text-xl w-3/4 text-center">
         All the products you need to reach your dream audience, create short
         URLs, QR codes, <br />
         Click analytics and so much more. <br /> All in one place{' '}
       </p>
 
-      <div className="flex max-w-fit mt-10">
-        <CTAButton className="anim-btn">
-          Get started for free
-          <FaArrowRight />
-        </CTAButton>
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-8 mt-4 ">
+      <div className="grid md:grid-cols-4 grid-cols-1 gap-8 mt-4 ">
         {features.map((feature, index) => (
           <div
             key={feature.title}
@@ -41,6 +32,13 @@ const Why = () => {
             </p>
           </div>
         ))}
+      </div>
+
+      <div className="flex max-w-fit mt-10">
+        <CTAButton className="anim-btn">
+          Get started for free
+          <FaArrowRight />
+        </CTAButton>
       </div>
     </section>
   );
