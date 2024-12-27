@@ -10,7 +10,7 @@ import usePath from '../../hooks/usePathName';
 import { SidebarProvider, useSidebar } from '../../contexts/SidebarContext';
 import { BiChevronLeft, BiChevronRight, BiPlus } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 const Sidebar = () => {
   const activePath = usePath();
@@ -92,7 +92,7 @@ const Sidebar = () => {
 
         <div className="flex flex-col w-full gap-y-6 lg:gap-y-4 h-full">
           {PATHNAMES.map((pathname, index) => (
-            <>
+            <Fragment key={index}>
               {pathname.title === 'Settings' && (
                 <div key={index} className="mt-auto"></div>
               )}
@@ -104,7 +104,7 @@ const Sidebar = () => {
                 isActive={getActivePath(pathname.href, activePath)}
                 isExpanded={isOpen}
               />
-            </>
+            </Fragment>
           ))}
         </div>
       </aside>
