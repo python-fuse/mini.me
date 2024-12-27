@@ -8,7 +8,7 @@ import Why from '../components/landing/Why';
 const page = () => {
   return (
     <div className="flex flex-col  max-w-screen mx-auto overflow-x-hidden">
-      <LandingHeader signedIn={true} />
+      <LandingHeader />
       <Hero />
       <Why />
       <Footer />
